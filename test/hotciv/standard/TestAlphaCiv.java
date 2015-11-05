@@ -42,5 +42,14 @@ public class TestAlphaCiv {
         assertThat(game.getPlayerInTurn(), is(Player.RED));
 
     }
+
+    @Test
+    public void afterRedHasHadTurnBlueGetsTurn() {
+        Game game = new GameImpl();
+        game.endOfTurn();
+        assertThat(game.getPlayerInTurn(), is(Player.BLUE));
+
     }
+    }
+
 
