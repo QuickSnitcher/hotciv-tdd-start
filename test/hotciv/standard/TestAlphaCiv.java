@@ -35,17 +35,23 @@ import static org.hamcrest.CoreMatchers.*;
 
 */
 public class TestAlphaCiv {
+    private Game game;
+
+    @Before
+    public void setUp(){
+        game = new GameImpl();
+    }
 
     @Test
     public void playerRedStartsGame() {
-        Game game = new GameImpl();
+
         assertThat(game.getPlayerInTurn(), is(Player.RED));
 
     }
 
     @Test
     public void afterRedHasHadTurnBlueGetsTurn() {
-        Game game = new GameImpl();
+
         game.endOfTurn();
         assertThat(game.getPlayerInTurn(), is(Player.BLUE));
 
