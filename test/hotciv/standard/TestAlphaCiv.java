@@ -35,21 +35,12 @@ import static org.hamcrest.CoreMatchers.*;
 
 */
 public class TestAlphaCiv {
-  private Game game;
-  /** Fixture for alphaciv testing. */
-  @Before
-  public void setUp() {
-    game = new GameImpl();
-  }
 
-  @Test
-  public void shouldHaveRedCityAt1_1() {
-    City c = game.getCityAt(new Position(1,1));
-    assertThat("There should be a city at (1,1)",
-               c, is(notNullValue()));
+    @Test
+    public void playerRedStartsGame() {
+        Game game = new GameImpl();
+        assertThat(game.getPlayerInTurn(), is(Player.RED));
 
-    Player p = c.getOwner();
-    assertThat("The city should be owned by RED player",
-               p, is(Player.RED));
-  }
-}
+    }
+    }
+
