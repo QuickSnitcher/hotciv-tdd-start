@@ -47,10 +47,12 @@ public class GameImpl implements Game {
         else if(p.getRow() == 0 && p.getColumn()==1){
             hillTile = new TileImpl(GameConstants.HILLS);
             return hillTile;
-        }else {
+        }else if(p.getRow()==2 && p.getColumn()==2) {
             mountainTile = new TileImpl(GameConstants.MOUNTAINS);
             return mountainTile;
-        }
+        }else
+            plainTile = new TileImpl(GameConstants.PLAINS);
+        return plainTile;
         }
 
   public Unit getUnitAt( Position p ) { return null; }

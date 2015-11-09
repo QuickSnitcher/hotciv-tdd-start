@@ -132,9 +132,14 @@ public class TestAlphaCiv {
     }
 
     @Test
-    public void tileIsMountainAtGameStart(){
+    public void tileIsMountain2X2AtGameStart(){
         p = new Position(2,2);
         assertThat(game.getTileAt(p).getTypeString(), is("mountain"));
+    }
+    @Test
+    public void tileIsPlain0X0atGameStart(){
+        p = new Position(0,0);
+        assertThat(game.getTileAt(p).getTypeString(), is("plains"));
     }
     }
 
