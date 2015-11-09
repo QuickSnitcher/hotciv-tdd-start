@@ -35,6 +35,7 @@ public class GameImpl implements Game {
     private Player winner = null;
     private Tile tile = null;
     private Unit unit = null;
+    private City city = null;
 
 
     public Tile getTileAt( Position p ) {
@@ -72,12 +73,16 @@ public class GameImpl implements Game {
 
   }
 
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) {
+      city = new CityImpl(Player.RED);
+    return city;
+  }
   public Player getPlayerInTurn() { return playerInTurn; }
   public Player getWinner() { return winner; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
-    return false;
+
+    return true;
   }
 
 

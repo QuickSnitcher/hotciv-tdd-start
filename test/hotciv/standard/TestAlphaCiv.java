@@ -41,6 +41,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestAlphaCiv {
     private Game game;
     private Position p;
+    private Position newP;
 
 
     public void oneRound(){
@@ -167,6 +168,24 @@ public class TestAlphaCiv {
     public void noUnitsOnOtherLocations(){
         p = new Position(5,5);
         assertThat(game.getUnitAt(p), is(nullValue()));
+    }
+
+    @Test
+    public void redArcherMovesOneTileToPosition3X0(){
+        p = new Position(2,0);
+        newP = new Position(3,0);
+       assertThat(game.moveUnit(p, newP), is(Boolean.TRUE));
+    }
+
+    @Test
+    public void redArcherHasMovedToPosition3X0(){
+
+    }
+
+    @Test
+    public void redCityAtPosition1X1(){
+        p = new Position(1,1);
+        assertThat(game.getCityAt(p).getOwner(), is(Player.RED));
     }
 }
 
