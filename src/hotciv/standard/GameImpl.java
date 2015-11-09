@@ -54,7 +54,8 @@ public class GameImpl implements Game {
         return tile;
         }
 
-  public Unit getUnitAt( Position p ) { unit = new UnitImpl(GameConstants.ARCHER);
+  public Unit getUnitAt( Position p ) {
+      unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
       return unit; }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return playerInTurn; }

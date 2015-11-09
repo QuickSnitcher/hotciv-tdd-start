@@ -8,17 +8,22 @@ import hotciv.framework.Unit;
  */
 public class UnitImpl implements Unit {
     private String type;
-    public UnitImpl(String type){
+    private Player owner;
+
+    public UnitImpl(String type, Player owner ){
         this.type = type;
+        this.owner = owner;
     }
     @Override
     public String getTypeString() {
+
         return type;
     }
 
     @Override
     public Player getOwner() {
-        return null;
+
+        return owner;
     }
 
     @Override

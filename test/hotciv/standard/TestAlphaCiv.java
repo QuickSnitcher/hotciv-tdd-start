@@ -146,6 +146,7 @@ public class TestAlphaCiv {
     public void redHasAnArcherAt2X0AtGameStart(){
         p = new Position(2,0);
         assertThat(game.getUnitAt(p).getTypeString(), is("archer"));
+        assertThat(game.getUnitAt(p).getOwner(), is(Player.RED));
     }
     }
 
