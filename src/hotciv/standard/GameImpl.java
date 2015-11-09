@@ -55,8 +55,16 @@ public class GameImpl implements Game {
         }
 
   public Unit getUnitAt( Position p ) {
-      unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-      return unit; }
+      if (p.getRow() == 4 && p.getColumn() == 3) {
+          unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+          return unit;
+      }
+      else
+          unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+          return unit;
+
+  }
+
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return playerInTurn; }
   public Player getWinner() { return winner; }
