@@ -96,6 +96,13 @@ public class TestAlphaCiv {
         fiveRounds();
         assertThat(game.getWinner(), is(Player.RED));
     }
+
+    @Test
+    public void winnerIsNullAt3500BC(){
+        fiveRounds();
+
+        assertThat(game.getWinner(), is(nullValue()));
+    }
     }
 
 

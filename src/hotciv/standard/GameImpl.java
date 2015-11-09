@@ -32,12 +32,13 @@ import hotciv.framework.*;
 public class GameImpl implements Game {
     private int age = -4000;
     private Player playerInTurn = Player.RED;
+    private Player winner = null;
 
   public Tile getTileAt( Position p ) { return null; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return playerInTurn; }
-  public Player getWinner() { return Player.RED; }
+  public Player getWinner() { return winner; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
     return false;
@@ -49,7 +50,11 @@ public class GameImpl implements Game {
           playerInTurn = Player.BLUE;
       } else{
           playerInTurn = Player.RED;
-          age += 100;  }
+          age += 100;
+      if(age == -3000){
+        winner = Player.RED;
+      }
+      }
 
 
   }
