@@ -37,6 +37,20 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestAlphaCiv {
     private Game game;
 
+    public void oneRound(){
+        game.endOfTurn();
+        game.endOfTurn();
+    }
+
+    public void fiveRounds(){
+        oneRound();
+        oneRound();
+        oneRound();
+        oneRound();
+        oneRound();
+
+    }
+
     @Before
     public void setUp(){
         game = new GameImpl();
@@ -55,10 +69,25 @@ public class TestAlphaCiv {
     }
     @Test
     public void afterBLueHadTurnRedGetsTurn(){
-        game.endOfTurn();
-        game.endOfTurn();
+        oneRound();
         assertThat(game.getPlayerInTurn(), is(Player.RED));
+    }
 
+    @Test
+    public void atGamestartYearis4000BC(){
+        assertThat(game.getAge(), is(-4000));
+    }
+
+    @Test
+    public void afterOneRoundYearIs3900BC(){
+        oneRound();
+        assertThat(game.getAge(), is(-3900));
+    }
+
+    @Test
+    public void afterFiveRoundsYearsis3500BC(){
+        fiveRounds();
+        assertThat(game.getAge(), is(-3500));
     }
     }
 
