@@ -74,8 +74,18 @@ public class GameImpl implements Game {
   }
 
   public City getCityAt( Position p ) {
-      city = new CityImpl(Player.RED);
-    return city;
+      if (p.getRow()==1 && p.getColumn()==1) {
+          city = new CityImpl(Player.RED);
+          return city;
+      }
+      if (p.getRow()==4 && p.getColumn()==1){
+          city = new CityImpl(Player.BLUE);
+          return city;
+      }
+      else{
+          return null;
+      }
+
   }
   public Player getPlayerInTurn() { return playerInTurn; }
   public Player getWinner() { return winner; }
