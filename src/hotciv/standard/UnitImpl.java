@@ -7,9 +7,13 @@ import hotciv.framework.Unit;
  * Created by Liam on 09-11-2015.
  */
 public class UnitImpl implements Unit {
+    private String type;
+    public UnitImpl(String type){
+        this.type = type;
+    }
     @Override
     public String getTypeString() {
-        return null;
+        return type;
     }
 
     @Override

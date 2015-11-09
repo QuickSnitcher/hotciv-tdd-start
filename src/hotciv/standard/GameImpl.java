@@ -33,29 +33,29 @@ public class GameImpl implements Game {
     private int age = -4000;
     private Player playerInTurn = Player.RED;
     private Player winner = null;
-    private Tile oceanTile = null;
-    private Tile plainTile = null;
-    private Tile hillTile = null;
-    private Tile mountainTile = null;
+    private Tile tile = null;
+    private Unit unit = null;
+
 
     public Tile getTileAt( Position p ) {
         if(p.getRow() == 1 && p.getColumn() == 0) {
-            oceanTile = new TileImpl(GameConstants.OCEANS);
-            return oceanTile;
+            tile = new TileImpl(GameConstants.OCEANS);
+            return tile;
 
         }
         else if(p.getRow() == 0 && p.getColumn()==1){
-            hillTile = new TileImpl(GameConstants.HILLS);
-            return hillTile;
+            tile = new TileImpl(GameConstants.HILLS);
+            return tile;
         }else if(p.getRow()==2 && p.getColumn()==2) {
-            mountainTile = new TileImpl(GameConstants.MOUNTAINS);
-            return mountainTile;
+            tile = new TileImpl(GameConstants.MOUNTAINS);
+            return tile;
         }else
-            plainTile = new TileImpl(GameConstants.PLAINS);
-        return plainTile;
+            tile = new TileImpl(GameConstants.PLAINS);
+        return tile;
         }
 
-  public Unit getUnitAt( Position p ) { return null; }
+  public Unit getUnitAt( Position p ) { unit = new UnitImpl(GameConstants.ARCHER);
+      return unit; }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return playerInTurn; }
   public Player getWinner() { return winner; }
