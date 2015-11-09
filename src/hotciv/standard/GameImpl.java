@@ -33,8 +33,16 @@ public class GameImpl implements Game {
     private int age = -4000;
     private Player playerInTurn = Player.RED;
     private Player winner = null;
+    private Tile oceanTile = null;
+    private Tile plainTile = null;
+    private Tile hillTile = null;
+    private Tile mountainTile = null;
 
-  public Tile getTileAt( Position p ) { return null; }
+    public Tile getTileAt( Position p ) {
+           oceanTile = new TileImpl(GameConstants.OCEANS);
+        return oceanTile;
+        }
+
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() { return playerInTurn; }

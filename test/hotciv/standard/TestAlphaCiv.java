@@ -41,7 +41,6 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestAlphaCiv {
     private Game game;
     private Position p;
-    private Tile tileType;
 
 
     public void oneRound(){
@@ -61,7 +60,7 @@ public class TestAlphaCiv {
     @Before
     public void setUp(){
         game = new GameImpl();
-        p = new Position(1,0);
+
     }
 
     @Test
@@ -122,7 +121,8 @@ public class TestAlphaCiv {
 
     @Test
     public void tileIsOceanAt1X0atGameStart(){
-        assertThat(game.getTileAt(p), is(tileType.getTypeString()));
+        p = new Position(1,0);
+        assertThat(game.getTileAt(p).getTypeString(), is(("ocean")));
     }
     }
 
