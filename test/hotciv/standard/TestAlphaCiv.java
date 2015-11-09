@@ -124,6 +124,12 @@ public class TestAlphaCiv {
         p = new Position(1,0);
         assertThat(game.getTileAt(p).getTypeString(), is(("ocean")));
     }
+
+    @Test
+    public void tileIsHillsAt0X1atGameStart(){
+        p = new Position(0,1);
+        assertThat(game.getTileAt(p).getTypeString(), is("hills"));
+    }
     }
 
 

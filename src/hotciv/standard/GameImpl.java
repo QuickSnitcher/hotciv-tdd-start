@@ -39,8 +39,15 @@ public class GameImpl implements Game {
     private Tile mountainTile = null;
 
     public Tile getTileAt( Position p ) {
-           oceanTile = new TileImpl(GameConstants.OCEANS);
-        return oceanTile;
+        if(p.getRow() == 1 && p.getColumn() == 0) {
+            oceanTile = new TileImpl(GameConstants.OCEANS);
+            return oceanTile;
+
+        }
+        else{
+            hillTile = new TileImpl(GameConstants.HILLS);
+            return hillTile;
+        }
         }
 
   public Unit getUnitAt( Position p ) { return null; }
