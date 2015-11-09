@@ -89,6 +89,13 @@ public class TestAlphaCiv {
         fiveRounds();
         assertThat(game.getAge(), is(-3500));
     }
+
+    @Test
+    public void redWinsGameAt3000BC(){
+        fiveRounds();
+        fiveRounds();
+        assertThat(game.getWinner(), is(Player.RED));
+    }
     }
 
 
