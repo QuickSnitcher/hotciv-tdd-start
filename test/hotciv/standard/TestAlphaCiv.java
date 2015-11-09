@@ -141,6 +141,12 @@ public class TestAlphaCiv {
         p = new Position(0,0);
         assertThat(game.getTileAt(p).getTypeString(), is("plains"));
     }
+
+    @Test
+    public void redHasAnArcherAt2X0AtGameStart(){
+        p = new Position(2,0);
+        assertThat(game.getUnitAt(p), is("archer"));
+    }
     }
 
 
