@@ -42,6 +42,7 @@ public class TestAlphaCiv {
     private Game game;
     private Position p;
     private Position newP;
+    private City city;
 
 
     public void oneRound(){
@@ -192,6 +193,12 @@ public class TestAlphaCiv {
     public void blueCityAtPosition4X1(){
         p = new Position(4,1);
         assertThat(game.getCityAt(p).getOwner(), is(Player.BLUE));
+    }
+
+    @Test
+    public void populationSizeOfRedCityIs1(){
+        p = new Position(1,1);
+        assertThat(game.getCityAt(p).getSize(), is(1));
     }
 }
 

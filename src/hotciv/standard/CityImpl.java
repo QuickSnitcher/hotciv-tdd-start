@@ -9,9 +9,12 @@ import hotciv.framework.Player;
 public class CityImpl implements City {
     private Player owner;
 
+
     public CityImpl(Player owner){
         this.owner = owner;
     }
+
+
     @Override
     public Player getOwner() {
         return owner;
@@ -19,7 +22,7 @@ public class CityImpl implements City {
 
     @Override
     public int getSize() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -31,4 +34,6 @@ public class CityImpl implements City {
     public String getWorkforceFocus() {
         return null;
     }
+
+
 }

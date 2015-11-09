@@ -38,6 +38,7 @@ public class GameImpl implements Game {
     private City city = null;
 
 
+
     public Tile getTileAt( Position p ) {
         if(p.getRow() == 1 && p.getColumn() == 0) {
             tile = new TileImpl(GameConstants.OCEANS);
@@ -112,6 +113,9 @@ public class GameImpl implements Game {
 
 
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-  public void changeProductionInCityAt( Position p, String unitType ) {}
+  public void changeProductionInCityAt( Position p, String unitType ) {
+
+
+  }
   public void performUnitActionAt( Position p ) {}
 }
