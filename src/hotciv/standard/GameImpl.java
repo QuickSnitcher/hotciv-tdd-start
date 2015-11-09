@@ -59,9 +59,16 @@ public class GameImpl implements Game {
           unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
           return unit;
       }
-      else
+      else if (p.getRow() == 2 && p.getColumn() == 0) {
           unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
           return unit;
+      }
+      else if (p.getRow() == 3 && p.getColumn() == 2){
+          unit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
+          return unit;
+      }
+      else
+          return null;
 
   }
 

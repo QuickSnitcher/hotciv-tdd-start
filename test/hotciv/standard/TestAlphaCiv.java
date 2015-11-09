@@ -155,6 +155,19 @@ public class TestAlphaCiv {
         assertThat(game.getUnitAt(p).getTypeString(), is("settler"));
         assertThat(game.getUnitAt(p).getOwner(), is(Player.RED));
     }
+
+    @Test
+    public void blueHasLegionAt3X2AtGameStart(){
+        p = new Position(3,2);
+        assertThat(game.getUnitAt(p).getTypeString(), is("legion"));
+        assertThat(game.getUnitAt(p).getOwner(), is(Player.BLUE));
+    }
+
+    @Test
+    public void noUnitsOnOtherLocations(){
+        p = new Position(5,5);
+        assertThat(game.getUnitAt(p), is(nullValue()));
+    }
 }
 
 
