@@ -44,16 +44,20 @@ public class TestAlphaCiv {
 
     @Test
     public void playerRedStartsGame() {
-
         assertThat(game.getPlayerInTurn(), is(Player.RED));
 
     }
 
     @Test
     public void afterRedHasHadTurnBlueGetsTurn() {
-
         game.endOfTurn();
         assertThat(game.getPlayerInTurn(), is(Player.BLUE));
+    }
+    @Test
+    public void afterBLueHadTurnRedGetsTurn(){
+        game.endOfTurn();
+        game.endOfTurn();
+        assertThat(game.getPlayerInTurn(), is(Player.RED));
 
     }
     }

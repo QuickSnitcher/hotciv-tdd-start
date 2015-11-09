@@ -41,9 +41,19 @@ public class GameImpl implements Game {
   public boolean moveUnit( Position from, Position to ) {
     return false;
   }
+
+
   public void endOfTurn() {
-      playerInTurn = Player.BLUE;
+      if (playerInTurn == Player.RED) {
+          playerInTurn = Player.BLUE;
+      } else{
+          playerInTurn = Player.RED;}
+
+
+
   }
+
+
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}
