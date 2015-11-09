@@ -44,9 +44,12 @@ public class GameImpl implements Game {
             return oceanTile;
 
         }
-        else{
+        else if(p.getRow() == 0 && p.getColumn()==1){
             hillTile = new TileImpl(GameConstants.HILLS);
             return hillTile;
+        }else {
+            mountainTile = new TileImpl(GameConstants.MOUNTAINS);
+            return mountainTile;
         }
         }
 
