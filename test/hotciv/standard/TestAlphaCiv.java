@@ -3,6 +3,10 @@ package hotciv.standard;
 import hotciv.framework.*;
 
 import org.junit.*;
+import org.junit.validator.PublicClassValidator;
+
+import javax.swing.plaf.metal.OceanTheme;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -36,6 +40,9 @@ import static org.hamcrest.CoreMatchers.*;
 */
 public class TestAlphaCiv {
     private Game game;
+    private Position p;
+    private Tile tileType;
+
 
     public void oneRound(){
         game.endOfTurn();
@@ -54,6 +61,7 @@ public class TestAlphaCiv {
     @Before
     public void setUp(){
         game = new GameImpl();
+        p = new Position(1,0);
     }
 
     @Test
@@ -102,6 +110,19 @@ public class TestAlphaCiv {
         fiveRounds();
 
         assertThat(game.getWinner(), is(nullValue()));
+    }
+
+    @Test
+    public  void winnerIsRedAt2900BC(){
+        fiveRounds();
+        fiveRounds();
+        oneRound();
+        assertThat(game.getWinner(), is(Player.RED));
+    }
+
+    @Test
+    public void tileIsOceanAt1X0atGameStart(){
+        assertThat(game.getTileAt(p), is(tileType.getTypeString()));
     }
     }
 
