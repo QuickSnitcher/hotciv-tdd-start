@@ -27,7 +27,7 @@ public class CityImpl implements City {
 
     @Override
     public String getProduction() {
-        return null;
+        return "archer";
     }
 
     @Override

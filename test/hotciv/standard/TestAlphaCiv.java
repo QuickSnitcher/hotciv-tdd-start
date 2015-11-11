@@ -200,6 +200,12 @@ public class TestAlphaCiv {
         p = new Position(1,1);
         assertThat(game.getCityAt(p).getSize(), is(1));
     }
+    @Test
+    public void redCitySetsArcherInProduction(){
+        p = new Position(1,1);
+        assertThat(game.getCityAt(p).getProduction(), is("archer"));
+    }
+
 }
 
 
