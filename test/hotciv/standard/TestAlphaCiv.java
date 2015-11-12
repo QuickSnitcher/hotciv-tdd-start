@@ -230,7 +230,12 @@ public class TestAlphaCiv {
         assertThat(game.getCityAt(p).getProduction(), is("legion"));
     }
 
-
+    @Test
+    public void blueCitySetsSettlerInProduction(){
+        p = new Position(4,1);
+        game.changeProductionInCityAt(p, "settler");
+        assertThat(game.getCityAt(p).getProduction(), is("settler"));
+    }
 
     @Test
     public void redCityHas0ProductionAtStart(){
