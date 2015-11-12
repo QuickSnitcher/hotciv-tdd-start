@@ -179,8 +179,10 @@ public class TestAlphaCiv {
     }
 
     @Test
-    public void redArcherHasMovedToPosition3X0(){
-
+    public void redArcherCannotMoveToOceanTile(){
+        p = new Position(2,0);
+        newP = new Position(1,0);
+        assertThat(game.moveUnit(p, newP), is(Boolean.FALSE));
     }
 
     @Test
@@ -243,6 +245,8 @@ public class TestAlphaCiv {
         oneRound();
         assertThat(game.getCityAt(p).getResource(), is(18));
     }
+
+
 
 }
 

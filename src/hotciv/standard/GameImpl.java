@@ -33,43 +33,48 @@ public class GameImpl implements Game {
     private int age = -4000;
     private Player playerInTurn = Player.RED;
     private Player winner = null;
-    private Tile tile = null;
-    private Unit unit = null;
-    private City city = null;
+
     private int resource = 0;
     private City Redcity = new CityImpl(Player.RED);
     private City Bluecity = new CityImpl(Player.BLUE);
+    private Unit redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+    private Unit redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    private Unit blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
+    private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
+    private Tile hillTile = new TileImpl(GameConstants.HILLS);
+    private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
+    private Tile plainsTile = new TileImpl(GameConstants.PLAINS);
 
 
     public Tile getTileAt( Position p ) {
         if(p.getRow() == 1 && p.getColumn() == 0) {
-            tile = new TileImpl(GameConstants.OCEANS);
-            return tile;
+
+            return oceanTile;
 
         }
         else if(p.getRow() == 0 && p.getColumn()==1){
-            tile = new TileImpl(GameConstants.HILLS);
-            return tile;
+
+            return hillTile;
         }else if(p.getRow()==2 && p.getColumn()==2) {
-            tile = new TileImpl(GameConstants.MOUNTAINS);
-            return tile;
+
+            return mountainTile;
         }else
-            tile = new TileImpl(GameConstants.PLAINS);
-        return tile;
+
+        return plainsTile;
         }
 
   public Unit getUnitAt( Position p ) {
       if (p.getRow() == 4 && p.getColumn() == 3) {
-          unit = new UnitImpl(GameConstants.SETTLER, Player.RED);
-          return unit;
+
+          return redSettlerUnit;
       }
       else if (p.getRow() == 2 && p.getColumn() == 0) {
-          unit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-          return unit;
+
+          return redArcherUnit;
       }
       else if (p.getRow() == 3 && p.getColumn() == 2){
-          unit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
-          return unit;
+
+          return blueLegionUnit;
       }
       else
           return null;
@@ -93,7 +98,9 @@ public class GameImpl implements Game {
   public Player getWinner() { return winner; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
-
+    if(getTileAt(to) == oceanTile){
+        return false;
+    }else
     return true;
   }
 
