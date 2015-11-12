@@ -100,7 +100,9 @@ public class GameImpl implements Game {
   public boolean moveUnit( Position from, Position to ) {
     if(getTileAt(to) == oceanTile){
         return false;
-    }else
+    }if (getTileAt(to) == mountainTile){
+          return false;
+      }
     return true;
   }
 

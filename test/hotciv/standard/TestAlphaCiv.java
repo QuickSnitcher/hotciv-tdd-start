@@ -186,6 +186,13 @@ public class TestAlphaCiv {
     }
 
     @Test
+    public void redArcherCannotMoveToMountainTile(){
+        p = new Position(2,0);
+        newP = new Position(2,2);
+        assertThat(game.moveUnit(p, newP), is(Boolean.FALSE));
+    }
+
+    @Test
     public void redCityAtPosition1X1(){
         p = new Position(1,1);
         assertThat(game.getCityAt(p).getOwner(), is(Player.RED));
