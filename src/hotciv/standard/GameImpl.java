@@ -36,7 +36,9 @@ public class GameImpl implements Game {
     private Tile tile = null;
     private Unit unit = null;
     private City city = null;
-
+    private int resource = 0;
+    private City Redcity = new CityImpl(Player.RED);
+    private City Bluecity = new CityImpl(Player.BLUE);
 
 
     public Tile getTileAt( Position p ) {
@@ -76,12 +78,11 @@ public class GameImpl implements Game {
 
   public City getCityAt( Position p ) {
       if (p.getRow()==1 && p.getColumn()==1) {
-          city = new CityImpl(Player.RED);
-          return city;
+          return Redcity;
       }
       if (p.getRow()==4 && p.getColumn()==1){
-          city = new CityImpl(Player.BLUE);
-          return city;
+
+          return Bluecity;
       }
       else{
           return null;
@@ -103,6 +104,9 @@ public class GameImpl implements Game {
       } else{
           playerInTurn = Player.RED;
           age += 100;
+          resource += 6;
+          ((CityImpl)Redcity).setResource(resource);
+          ((CityImpl)Bluecity).setResource(resource);
       if(age == -3000){
         winner = Player.RED;
       }

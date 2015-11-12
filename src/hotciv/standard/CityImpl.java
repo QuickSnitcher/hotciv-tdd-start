@@ -8,6 +8,7 @@ import hotciv.framework.Player;
  */
 public class CityImpl implements City {
     private Player owner;
+    private int resource = 0;
 
 
     public CityImpl(Player owner){
@@ -33,6 +34,17 @@ public class CityImpl implements City {
     @Override
     public String getWorkforceFocus() {
         return null;
+    }
+
+    @Override
+    public int getResource(){
+        return resource;
+    }
+
+
+
+    public void setResource(int updateResource){
+        resource = updateResource;
     }
 
 

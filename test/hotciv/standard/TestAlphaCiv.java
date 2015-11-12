@@ -206,6 +206,44 @@ public class TestAlphaCiv {
         assertThat(game.getCityAt(p).getProduction(), is("archer"));
     }
 
+    @Test
+    public void redCityHas0ProductionAtStart(){
+        p = new Position(1,1);
+        assertThat(game.getCityAt(p).getResource(), is(0));
+    }
+
+    @Test
+    public void redCityHas6ProductionAfterOneRound(){
+        p = new Position(1,1);
+        oneRound();
+        assertThat(game.getCityAt(p).getResource(), is(6));
+    }
+
+    @Test
+    public void redCityHas18ProductionAfter3Rounds(){
+        p = new Position(1,1);
+        oneRound();
+        oneRound();
+        oneRound();
+        assertThat(game.getCityAt(p).getResource(), is(18));
+    }
+
+    @Test
+    public void blueCityHas6ProductionAfterOneRound(){
+        p = new Position(4,1);
+        oneRound();
+        assertThat(game.getCityAt(p).getResource(), is(6));
+    }
+
+    @Test
+    public void blueCityHas18ProductionAfter3Rounds(){
+        p = new Position(4,1);
+        oneRound();
+        oneRound();
+        oneRound();
+        assertThat(game.getCityAt(p).getResource(), is(18));
+    }
+
 }
 
 

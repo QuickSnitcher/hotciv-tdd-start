@@ -31,6 +31,16 @@ Responsibilities:
 
 */
 public interface City {
+
+
+
+
+
+    /**return the amount of production or resource this city has.
+     * @return the int of resource for this city
+     */
+   public int getResource();
+
   /** return the owner of this city.
    * @return the player that controls this city.
    */
@@ -52,5 +62,6 @@ public interface City {
    * for valid return values.
    */
   public String getWorkforceFocus();
+
 
 }
