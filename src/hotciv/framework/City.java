@@ -34,8 +34,6 @@ public interface City {
 
 
 
-
-
     /**return the amount of production or resource this city has.
      * @return the int of resource for this city
      */

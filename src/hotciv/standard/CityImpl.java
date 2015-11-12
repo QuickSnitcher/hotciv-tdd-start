@@ -9,6 +9,7 @@ import hotciv.framework.Player;
 public class CityImpl implements City {
     private Player owner;
     private int resource = 0;
+    private String unitInProduction = null;
 
 
     public CityImpl(Player owner){
@@ -28,7 +29,7 @@ public class CityImpl implements City {
 
     @Override
     public String getProduction() {
-        return "archer";
+        return unitInProduction;
     }
 
     @Override
@@ -41,7 +42,9 @@ public class CityImpl implements City {
         return resource;
     }
 
-
+    public void setUnitInProduction(String newProductionUnit){
+        unitInProduction = newProductionUnit;
+    }
 
     public void setResource(int updateResource){
         resource = updateResource;

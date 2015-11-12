@@ -195,7 +195,7 @@ public class TestAlphaCiv {
     @Test
     public void redArcherCanMoveToPlains(){
         p = new Position(2,0);
-        newP = new Position(2,2);
+        newP = new Position(5,6);
         assertThat(game.moveUnit(p, newP), is(Boolean.TRUE));
     }
 
@@ -219,8 +219,18 @@ public class TestAlphaCiv {
     @Test
     public void redCitySetsArcherInProduction(){
         p = new Position(1,1);
+        game.changeProductionInCityAt(p, "archer");
         assertThat(game.getCityAt(p).getProduction(), is("archer"));
     }
+
+    @Test
+    public void redCitySetsLegionInProduction(){
+        p = new Position(1,1);
+        game.changeProductionInCityAt(p, "legion");
+        assertThat(game.getCityAt(p).getProduction(), is("legion"));
+    }
+
+
 
     @Test
     public void redCityHas0ProductionAtStart(){
@@ -259,6 +269,8 @@ public class TestAlphaCiv {
         oneRound();
         assertThat(game.getCityAt(p).getResource(), is(18));
     }
+
+
 
 
 
