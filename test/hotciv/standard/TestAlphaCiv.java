@@ -297,6 +297,15 @@ public class TestAlphaCiv {
 
     }
 
+    @Test
+    public void attackersAlwaysWinsRedArcherWinsWhenMovedToBlueLegion(){
+        p = new Position(2,0);
+        newP = new Position(3,2);
+
+        game.moveUnit(p, newP);
+        assertThat(game.getUnitAt(newP).getTypeString(), is("archer"));
+    }
+
 
 
 
