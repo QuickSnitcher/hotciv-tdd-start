@@ -42,10 +42,12 @@ public class GameImpl implements Game {
     private UnitImpl redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
     private UnitImpl redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
     private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
+    private UnitImpl blueArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
     private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
     private Tile plainsTile = new TileImpl(GameConstants.PLAINS);
+
 
 
 
@@ -132,6 +134,10 @@ else{
   public void endOfTurn() {
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
+          bluecity.setResource(resource);
+          if (bluecity.getResource() >= 10){
+              mapping.put(new Position(4,1), blueArcherUnit);
+          }
 
       } else{
           playerInTurn = Player.RED;
@@ -141,7 +147,7 @@ else{
           if (redcity.getResource() >= 10){
             mapping.put(new Position(1,1), redArcherUnit);
           }
-          bluecity.setResource(resource);
+
 
       if(age == -3000){
         winner = Player.RED;

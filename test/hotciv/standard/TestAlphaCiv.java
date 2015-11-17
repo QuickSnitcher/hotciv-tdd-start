@@ -315,6 +315,17 @@ public class TestAlphaCiv {
         assertThat(game.getUnitAt(p).getTypeString(), is("archer"));
     }
 
+    @Test
+    public void blueCityProducesAnArcherWhenProductionIsTenOrMore(){
+        p = new Position(4,1);
+        oneRound();
+        assertThat(game.getCityAt(p).getResource(), is(6));
+        oneRound();
+        assertThat(game.getUnitAt(p).getTypeString(), is("archer"));
+    }
+
+
+
 
 
 
