@@ -63,6 +63,7 @@ public class TestAlphaCiv {
     public void setUp(){
         game = new GameImpl();
 
+
     }
 
     @Test
@@ -275,6 +276,21 @@ public class TestAlphaCiv {
         assertThat(game.getCityAt(p).getResource(), is(18));
     }
 
+    @Test
+    public void redArcherHasMovedFrom2X0To3X0(){
+        p = new Position(2,0);
+        newP = new Position(3,0);
+
+        assertThat(game.getUnitAt(p).getTypeString(), is("archer"));
+        game.moveUnit(p, newP);
+
+        assertThat(game.getUnitAt(newP).getTypeString(), is("archer"));
+    }
+
+    @Test
+    public void addRedArcherToHashmapAt1X0(){
+
+    }
 
 
 

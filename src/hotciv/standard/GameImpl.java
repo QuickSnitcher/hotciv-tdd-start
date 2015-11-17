@@ -2,6 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import java.util.HashMap;
+
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 
@@ -37,14 +39,27 @@ public class GameImpl implements Game {
     private int resource = 0;
     private City Redcity = new CityImpl(Player.RED);
     private City Bluecity = new CityImpl(Player.BLUE);
-    private Unit redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
-    private Unit redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-    private Unit blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
+    private UnitImpl redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
+    private UnitImpl redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
     private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
     private Tile plainsTile = new TileImpl(GameConstants.PLAINS);
 
+
+
+
+    private HashMap<Position, UnitImpl> mapping = new HashMap(256);
+
+
+public GameImpl(){
+
+    mapping.put(new Position(2,0), redArcherUnit);
+    mapping.put(new Position(4,3), redSettlerUnit);
+    mapping.put(new Position(3,2), blueLegionUnit);
+
+}
 
     public Tile getTileAt( Position p ) {
         if(p.getRow() == 1 && p.getColumn() == 0) {
@@ -64,20 +79,13 @@ public class GameImpl implements Game {
         }
 
   public Unit getUnitAt( Position p ) {
-      if (p.getRow() == 4 && p.getColumn() == 3) {
 
-          return redSettlerUnit;
-      }
-      else if (p.getRow() == 2 && p.getColumn() == 0) {
+      return mapping.get(p);
 
-          return redArcherUnit;
-      }
-      else if (p.getRow() == 3 && p.getColumn() == 2){
 
-          return blueLegionUnit;
-      }
-      else
-          return null;
+
+
+
 
   }
 
@@ -98,6 +106,13 @@ public class GameImpl implements Game {
   public Player getWinner() { return winner; }
   public int getAge() { return age; }
   public boolean moveUnit( Position from, Position to ) {
+
+
+
+
+     mapping.remove(from, redArcherUnit);
+    mapping.put(to, redArcherUnit);
+
     if(getTileAt(to) == oceanTile){
         return false;
     }if (getTileAt(to) == mountainTile){
