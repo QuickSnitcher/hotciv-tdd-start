@@ -288,7 +288,12 @@ public class TestAlphaCiv {
     }
 
     @Test
-    public void addRedArcherToHashmapAt1X0(){
+    public void redArcherHasNotMovedToTileIfTileIsMountain(){
+        p = new Position(2,0);
+        newP = new Position(2,2);
+
+        game.moveUnit(p, newP);
+        assertThat(game.getUnitAt(newP), is(nullValue()));
 
     }
 

@@ -103,22 +103,27 @@ public GameImpl(){
 
   }
   public Player getPlayerInTurn() { return playerInTurn; }
+
   public Player getWinner() { return winner; }
+
   public int getAge() { return age; }
+
   public boolean moveUnit( Position from, Position to ) {
 
 
 
+    if(getTileAt(to) == plainsTile || getTileAt(to) == hillTile) {
+        mapping.remove(from, redArcherUnit);
+        mapping.put(to, redArcherUnit);
+        return true;
+    }
 
-     mapping.remove(from, redArcherUnit);
-    mapping.put(to, redArcherUnit);
 
-    if(getTileAt(to) == oceanTile){
+
+else{
         return false;
-    }if (getTileAt(to) == mountainTile){
-          return false;
-      }
-    return true;
+    }
+
   }
 
 
