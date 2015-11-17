@@ -47,7 +47,9 @@ public class CityImpl implements City {
     }
 
     public void setResource(int updateResource){
-        resource = updateResource;
+
+        resource += updateResource;
+
     }
 
 

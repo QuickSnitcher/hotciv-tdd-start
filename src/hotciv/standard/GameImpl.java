@@ -36,9 +36,9 @@ public class GameImpl implements Game {
     private Player playerInTurn = Player.RED;
     private Player winner = null;
 
-    private int resource = 0;
-    private City Redcity = new CityImpl(Player.RED);
-    private City Bluecity = new CityImpl(Player.BLUE);
+    private int resource = 6;
+    private CityImpl redcity = new CityImpl(Player.RED);
+    private CityImpl bluecity = new CityImpl(Player.BLUE);
     private UnitImpl redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
     private UnitImpl redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
     private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
@@ -91,11 +91,11 @@ public GameImpl(){
 
   public City getCityAt( Position p ) {
       if (p.getRow()==1 && p.getColumn()==1) {
-          return Redcity;
+          return redcity;
       }
       if (p.getRow()==4 && p.getColumn()==1){
 
-          return Bluecity;
+          return bluecity;
       }
       else{
           return null;
@@ -127,15 +127,22 @@ else{
   }
 
 
+
+
   public void endOfTurn() {
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
+
       } else{
           playerInTurn = Player.RED;
           age += 100;
-          resource += 6;
-          ((CityImpl)Redcity).setResource(resource);
-          ((CityImpl)Bluecity).setResource(resource);
+
+          redcity.setResource(resource);
+          if (redcity.getResource() >= 10){
+            mapping.put(new Position(1,1), redArcherUnit);
+          }
+          bluecity.setResource(resource);
+
       if(age == -3000){
         winner = Player.RED;
       }
@@ -146,6 +153,7 @@ else{
 
 
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+
   public void changeProductionInCityAt( Position p, String unitType ) {
             ((CityImpl)getCityAt(p)).setUnitInProduction(unitType);
 
