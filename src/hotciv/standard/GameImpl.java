@@ -41,6 +41,7 @@ public class GameImpl implements Game {
     private CityImpl bluecity = new CityImpl(Player.BLUE);
     private UnitImpl redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
     private UnitImpl redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
+    private UnitImpl redLegionUnit = new UnitImpl(GameConstants.LEGION, Player.RED);
     private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
     private UnitImpl blueArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
@@ -144,8 +145,12 @@ else{
           age += 100;
 
           redcity.setResource(resource);
-          if (redcity.getResource() >= 10){
+
+          if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){
             mapping.put(new Position(1,1), redArcherUnit);
+          }
+          if (redcity.getProduction() == "legion" && redcity.getResource() >= 15){
+              mapping.put(new Position(1,1), redLegionUnit);
           }
 
 
