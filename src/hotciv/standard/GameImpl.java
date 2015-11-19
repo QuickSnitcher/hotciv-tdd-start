@@ -141,6 +141,7 @@ else{
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
           bluecity.setResource(resource);
+
           if (bluecity.getProduction() == "archer" && bluecity.getResource() >= 10){
 
               mapping.put(new Position(4,1), blueArcherUnit);
@@ -159,7 +160,9 @@ else{
       } else{
           playerInTurn = Player.RED;
           age += 100;
-
+          for (UnitImpl allUnits : mapping.values()){
+              allUnits.setMoveCount(1);
+          }
           redcity.setResource(resource);
 
           if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){

@@ -388,8 +388,13 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(moveTo).getMoveCount(), is(0));
     game.moveUnit(moveTo, new Position(4,0));
     assertThat(game.getUnitAt(new Position(4,0)), is(nullValue()));
+    oneRound();
+    game.moveUnit(moveTo, new Position(4,0));
+    assertThat(game.getUnitAt(new Position(4,0)).getTypeString(), is("archer"));
+    assertThat(game.getUnitAt(new Position(4,0)).getMoveCount(), is(0));
 
 }
+
 
 
 

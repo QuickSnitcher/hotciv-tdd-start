@@ -27,8 +27,8 @@ public class UnitImpl implements Unit {
         return owner;
     }
 
-    public void setMoveCount(int updateMove){
-        moveCount = updateMove;
+    public void setMoveCount(int updateCount){
+        moveCount = updateCount;
     }
 
     @Override
