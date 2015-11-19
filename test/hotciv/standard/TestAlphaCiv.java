@@ -378,6 +378,18 @@ public class TestAlphaCiv {
 
     }
 
+@Test
+    public void redArcherCanOnlyMoveOncePerTurn(){
+    Position redarcher = new Position(2,0);
+    Position moveTo = new Position(3,0);
+
+    game.moveUnit(redarcher, moveTo);
+    assertThat(game.getUnitAt(moveTo).getTypeString(), is("archer"));
+    assertThat(game.getUnitAt(moveTo).getMoveCount(), is(0));
+    game.moveUnit(moveTo, new Position(4,0));
+    assertThat(game.getUnitAt(new Position(4,0)), is(nullValue()));
+
+}
 
 
 

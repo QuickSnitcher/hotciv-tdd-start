@@ -116,10 +116,13 @@ public GameImpl(){
 
 
 
-    if(getTileAt(to) == plainsTile || getTileAt(to) == hillTile) {
-        UnitImpl unit = mapping.get(from);
-        mapping.remove(from);
-        mapping.put(to, unit);
+        if (getTileAt(to) == plainsTile && getUnitAt(from).getMoveCount() == 1  || getTileAt(to) == hillTile && getUnitAt(from).getMoveCount() == 1 ) {
+            UnitImpl unit = mapping.get(from);
+            unit.setMoveCount(0);
+            mapping.remove(from);
+            mapping.put(to, unit);
+
+
         return true;
     }
 
