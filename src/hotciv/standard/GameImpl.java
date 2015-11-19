@@ -44,6 +44,7 @@ public class GameImpl implements Game {
     private UnitImpl redLegionUnit = new UnitImpl(GameConstants.LEGION, Player.RED);
     private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
     private UnitImpl blueArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
+    private UnitImpl blueSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
     private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
@@ -136,9 +137,19 @@ else{
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
           bluecity.setResource(resource);
-          if (bluecity.getResource() >= 10){
+          if (bluecity.getProduction() == "archer" && bluecity.getResource() >= 10){
               mapping.put(new Position(4,1), blueArcherUnit);
+              bluecity.setResource(-10);
           }
+          if (bluecity.getProduction() == "legion" && bluecity.getResource() >= 15){
+              mapping.put(new Position(4,1), blueLegionUnit);
+              bluecity.setResource(-15);
+          }
+          if (bluecity.getProduction() == "settler" && bluecity.getResource() >= 30){
+              mapping.put(new Position(4,1), blueSettlerUnit);
+              bluecity.setResource(-30);
+          }
+
 
       } else{
           playerInTurn = Player.RED;
@@ -148,9 +159,15 @@ else{
 
           if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){
             mapping.put(new Position(1,1), redArcherUnit);
+              redcity.setResource(-10);
           }
           if (redcity.getProduction() == "legion" && redcity.getResource() >= 15){
               mapping.put(new Position(1,1), redLegionUnit);
+              redcity.setResource(-15);
+          }
+          if (redcity.getProduction() == "settler" && redcity.getResource() >= 30){
+              mapping.put(new Position(1,1), redSettlerUnit);
+              redcity.setResource(-30);
           }
 
 

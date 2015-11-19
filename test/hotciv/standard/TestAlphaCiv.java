@@ -320,6 +320,7 @@ public class TestAlphaCiv {
     public void blueCityProducesAnArcherWhenProductionIsTenOrMore(){
         p = new Position(4,1);
         oneRound();
+        game.changeProductionInCityAt(p, "archer");
         assertThat(game.getCityAt(p).getResource(), is(6));
         oneRound();
         assertThat(game.getUnitAt(p).getTypeString(), is("archer"));
@@ -332,6 +333,32 @@ public class TestAlphaCiv {
         fiveRounds();
         assertThat(game.getCityAt(p).getProduction(), is("legion"));
         assertThat(game.getUnitAt(p).getTypeString(), is("legion"));
+    }
+
+    @Test
+    public void blueCityProducesTheChosenProductionUnitSet(){
+        p =new Position(4,1);
+
+        game.changeProductionInCityAt(p, "legion");
+        fiveRounds();
+        assertThat(game.getCityAt(p).getProduction(), is("legion"));
+        assertThat(game.getUnitAt(p).getTypeString(), is("legion"));
+
+
+
+    }
+
+    @Test
+    public void unitCostIsSubtractedFromTheCitiesProductionAmount(){
+        Position bluecity = new Position(4,1);
+        Position redcity = new Position(1,1);
+
+        game.changeProductionInCityAt(bluecity, "legion");
+        game.changeProductionInCityAt(redcity, "settler");
+        fiveRounds();
+        oneRound();
+        assertThat(game.getCityAt(bluecity).getResource(), is(6));
+        assertThat(game.getCityAt(redcity).getResource(), is(6));
     }
 
 
