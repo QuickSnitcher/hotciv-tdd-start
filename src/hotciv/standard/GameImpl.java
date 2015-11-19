@@ -117,8 +117,9 @@ public GameImpl(){
 
 
     if(getTileAt(to) == plainsTile || getTileAt(to) == hillTile) {
-        mapping.remove(from, redArcherUnit);
-        mapping.put(to, redArcherUnit);
+        UnitImpl unit = mapping.get(from);
+        mapping.remove(from);
+        mapping.put(to, unit);
         return true;
     }
 
@@ -138,6 +139,7 @@ else{
           playerInTurn = Player.BLUE;
           bluecity.setResource(resource);
           if (bluecity.getProduction() == "archer" && bluecity.getResource() >= 10){
+
               mapping.put(new Position(4,1), blueArcherUnit);
               bluecity.setResource(-10);
           }
@@ -158,8 +160,15 @@ else{
           redcity.setResource(resource);
 
           if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){
-            mapping.put(new Position(1,1), redArcherUnit);
               redcity.setResource(-10);
+              if (mapping.containsKey(new Position(1,1))){
+                  mapping.put(new Position(1,0), redArcherUnit);
+              }
+              else{
+                  mapping.put(new Position(1,1), redArcherUnit);
+              }
+
+
           }
           if (redcity.getProduction() == "legion" && redcity.getResource() >= 15){
               mapping.put(new Position(1,1), redLegionUnit);

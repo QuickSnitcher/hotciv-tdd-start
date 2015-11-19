@@ -361,6 +361,22 @@ public class TestAlphaCiv {
         assertThat(game.getCityAt(redcity).getResource(), is(6));
     }
 
+    @Test
+    public void redArcherMovesNorthIfCityTileIsOccupied(){
+        Position redcity = new Position(1,1);
+        Position north = new Position(1,0);
+
+        game.changeProductionInCityAt(redcity, "legion");
+        oneRound();
+        oneRound();
+        oneRound();
+        game.changeProductionInCityAt(redcity, "archer");
+        oneRound();
+        oneRound();
+        assertThat(game.getUnitAt(redcity).getTypeString(), is("legion"));
+        assertThat(game.getUnitAt(north).getTypeString(), is("archer"));
+
+    }
 
 
 
