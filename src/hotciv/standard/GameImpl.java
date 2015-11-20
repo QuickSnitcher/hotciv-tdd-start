@@ -39,12 +39,7 @@ public class GameImpl implements Game {
     private int resource = 6;
     private CityImpl redcity = new CityImpl(Player.RED);
     private CityImpl bluecity = new CityImpl(Player.BLUE);
-    private UnitImpl redSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.RED);
-    private UnitImpl redArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.RED);
-    private UnitImpl redLegionUnit = new UnitImpl(GameConstants.LEGION, Player.RED);
-    private UnitImpl blueLegionUnit = new UnitImpl(GameConstants.LEGION, Player.BLUE);
-    private UnitImpl blueArcherUnit = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
-    private UnitImpl blueSettlerUnit = new UnitImpl(GameConstants.SETTLER, Player.BLUE);
+
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
     private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
@@ -59,9 +54,9 @@ public class GameImpl implements Game {
 
 public GameImpl(){
 
-    mapping.put(new Position(2,0), redArcherUnit);
-    mapping.put(new Position(4,3), redSettlerUnit);
-    mapping.put(new Position(3,2), blueLegionUnit);
+    mapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
+    mapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+    mapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
 
 }
 
@@ -144,15 +139,15 @@ else{
 
           if (bluecity.getProduction() == "archer" && bluecity.getResource() >= 10){
 
-              mapping.put(new Position(4,1), blueArcherUnit);
+              createUnit(new Position(4,1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
               bluecity.setResource(-10);
           }
           if (bluecity.getProduction() == "legion" && bluecity.getResource() >= 15){
-              mapping.put(new Position(4,1), blueLegionUnit);
+              createUnit(new Position(4,1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
               bluecity.setResource(-15);
           }
           if (bluecity.getProduction() == "settler" && bluecity.getResource() >= 30){
-              mapping.put(new Position(4,1), blueSettlerUnit);
+              createUnit(new Position(4,1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
               bluecity.setResource(-30);
           }
 
@@ -167,21 +162,16 @@ else{
 
           if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){
               redcity.setResource(-10);
-              if (mapping.containsKey(new Position(1,1))){
-                  mapping.put(new Position(1,0), redArcherUnit);
-              }
-              else{
-                  mapping.put(new Position(1,1), redArcherUnit);
-              }
+              createUnit(new Position(1,1),new UnitImpl(GameConstants.ARCHER, Player.RED));
 
 
           }
           if (redcity.getProduction() == "legion" && redcity.getResource() >= 15){
-              mapping.put(new Position(1,1), redLegionUnit);
+              createUnit(new Position(1,1), new UnitImpl(GameConstants.LEGION, Player.RED));
               redcity.setResource(-15);
           }
           if (redcity.getProduction() == "settler" && redcity.getResource() >= 30){
-              mapping.put(new Position(1,1), redSettlerUnit);
+              createUnit(new Position(1,1), new UnitImpl(GameConstants.SETTLER, Player.RED));
               redcity.setResource(-30);
           }
 
@@ -193,6 +183,32 @@ else{
 
 
   }
+
+    public void createUnit(Position cityPosition ,UnitImpl createdUnit){
+
+        if (!mapping.containsKey(cityPosition)){
+
+            mapping.put(cityPosition, createdUnit);
+        }
+
+        else if(!mapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() -1))){
+            mapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() -1),createdUnit);
+        }
+        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1))){
+            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1),createdUnit);
+        }
+        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn()))){
+            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn()),createdUnit);
+        }
+        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1))){
+            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1),createdUnit);
+        }
+        else if(!mapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() +1))){
+            mapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() +1),createdUnit);
+        }
+
+
+    }
 
 
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

@@ -395,6 +395,17 @@ public class TestAlphaCiv {
 
 }
 
+    @Test
+    public void redArcherCreatedByRedCityMovesToNearestAvailableSpaceClockwise(){
+
+        game.changeProductionInCityAt(new Position(1,1), "archer");
+        fiveRounds();
+        assertThat(game.getUnitAt(new Position(1,1)).getTypeString(), is("archer"));
+        assertThat(game.getUnitAt(new Position(1,0)).getTypeString(), is("archer"));
+        assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is("archer"));
+
+    }
+
 
 
 
