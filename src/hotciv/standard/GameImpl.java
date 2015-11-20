@@ -108,18 +108,23 @@ public GameImpl(){
   public int getAge() { return age; }
 
   public boolean moveUnit( Position from, Position to ) {
+      if (getTileAt(to).getTypeString() == GameConstants.OCEANS){return false;}
+      if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS){return false;}
+      if (getUnitAt(from).getMoveCount() == 0){return false;}
+
+
+if(from.getRow() - to.getRow() <= 1 && from.getRow() - to.getRow() >= -1 && from.getColumn() - to.getColumn() <= 1 && from.getColumn() - to.getColumn() >= -1) {
+
+        UnitImpl unit = mapping.get(from);
+        unit.setMoveCount(0);
+        mapping.remove(from);
+        mapping.put(to, unit);
 
 
 
-        if (getTileAt(to) == plainsTile && getUnitAt(from).getMoveCount() == 1  || getTileAt(to) == hillTile && getUnitAt(from).getMoveCount() == 1 ) {
-            UnitImpl unit = mapping.get(from);
-            unit.setMoveCount(0);
-            mapping.remove(from);
-            mapping.put(to, unit);
 
-
-        return true;
-    }
+    return true;
+}
 
 
 
@@ -137,16 +142,16 @@ else{
           playerInTurn = Player.BLUE;
           bluecity.setResource(resource);
 
-          if (bluecity.getProduction() == "archer" && bluecity.getResource() >= 10){
+          if (bluecity.getProduction() == GameConstants.ARCHER && bluecity.getResource() >= 10){
 
               createUnit(new Position(4,1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
               bluecity.setResource(-10);
           }
-          if (bluecity.getProduction() == "legion" && bluecity.getResource() >= 15){
+          if (bluecity.getProduction() == GameConstants.LEGION && bluecity.getResource() >= 15){
               createUnit(new Position(4,1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
               bluecity.setResource(-15);
           }
-          if (bluecity.getProduction() == "settler" && bluecity.getResource() >= 30){
+          if (bluecity.getProduction() == GameConstants.SETTLER && bluecity.getResource() >= 30){
               createUnit(new Position(4,1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
               bluecity.setResource(-30);
           }
@@ -160,17 +165,17 @@ else{
           }
           redcity.setResource(resource);
 
-          if (redcity.getProduction() == "archer" && redcity.getResource() >= 10){
+          if (redcity.getProduction() == GameConstants.ARCHER && redcity.getResource() >= 10){
               redcity.setResource(-10);
-              createUnit(new Position(1,1),new UnitImpl(GameConstants.ARCHER, Player.RED));
+              createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
 
 
           }
-          if (redcity.getProduction() == "legion" && redcity.getResource() >= 15){
+          if (redcity.getProduction() == GameConstants.LEGION && redcity.getResource() >= 15){
               createUnit(new Position(1,1), new UnitImpl(GameConstants.LEGION, Player.RED));
               redcity.setResource(-15);
           }
-          if (redcity.getProduction() == "settler" && redcity.getResource() >= 30){
+          if (redcity.getProduction() == GameConstants.SETTLER && redcity.getResource() >= 30){
               createUnit(new Position(1,1), new UnitImpl(GameConstants.SETTLER, Player.RED));
               redcity.setResource(-30);
           }
