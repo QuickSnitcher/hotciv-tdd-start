@@ -111,6 +111,9 @@ public GameImpl(){
       if (getTileAt(to).getTypeString() == GameConstants.OCEANS){return false;}
       if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS){return false;}
       if (getUnitAt(from).getMoveCount() == 0){return false;}
+      if (getUnitAt(to) != null){
+          if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())){return false;}}
+
 
 
 if(from.getRow() - to.getRow() <= 1 && from.getRow() - to.getRow() >= -1 && from.getColumn() - to.getColumn() <= 1 && from.getColumn() - to.getColumn() >= -1) {

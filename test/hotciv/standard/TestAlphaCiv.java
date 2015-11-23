@@ -297,14 +297,7 @@ public class TestAlphaCiv {
 
     }
 
-    @Test
-    public void attackersAlwaysWinsRedArcherWinsWhenMovedToBlueLegion(){
-        p = new Position(2,0);
-        newP = new Position(3,1);
 
-        game.moveUnit(p, newP);
-        assertThat(game.getUnitAt(newP).getTypeString(), is("archer"));
-    }
 
     @Test
     public void redCityProducesAnArcherWhenProductionIsTenOrMore(){
@@ -423,6 +416,18 @@ public class TestAlphaCiv {
         assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is("legion"));
         game.moveUnit(new Position(3,1), new Position(3,2));
         assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is("archer"));
+    }
+
+    @Test
+    public void unitCannotAttackOwnUnit(){
+        game.moveUnit(new Position(2,0), new Position(3,1));
+        oneRound();
+        game.moveUnit(new Position(3,1), new Position(4,2));
+        oneRound();
+        assertThat(game.moveUnit(new Position(4,2), new Position(4,3)), is(false));
+
+
+
     }
 
 
