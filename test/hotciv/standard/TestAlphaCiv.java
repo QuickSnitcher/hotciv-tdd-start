@@ -416,6 +416,15 @@ public class TestAlphaCiv {
         assertThat(game.getUnitAt(new Position(6,2)), is(nullValue()));
     }
 
+    @Test
+    public void attackerAlwaysWins(){
+        game.moveUnit(new Position(2,0), new Position(3,1));
+        oneRound();
+        assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is("legion"));
+        game.moveUnit(new Position(3,1), new Position(3,2));
+        assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is("archer"));
+    }
+
 
 
 
