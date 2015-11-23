@@ -1,0 +1,11 @@
+package hotciv.framework;
+
+import hotciv.standard.GameImpl;
+
+/**
+ * Created by simon on 23-11-2015.
+ */
+public interface WinnerStrategy {
+
+    public Player checkWinner(Game game);
+}

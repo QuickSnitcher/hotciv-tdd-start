@@ -36,6 +36,7 @@ public class GameImpl implements Game {
     private Player playerInTurn = Player.RED;
     private Player winner = null;
     private AgingStrategy agingStrategy;
+    private WinnerStrategy winnerStrategy;
 
     private int resource = 6;
     private CityImpl redcity = new CityImpl(Player.RED);
@@ -50,14 +51,15 @@ public class GameImpl implements Game {
 
 
 
-    private HashMap<Position, UnitImpl> mapping = new HashMap(256);
+    private HashMap<Position, UnitImpl> unitMapping = new HashMap(256);
 
 
-public GameImpl(AgingStrategy agingStrategy){
+public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy){
     this.agingStrategy = agingStrategy;
-    mapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
-    mapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
-    mapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+    this.winnerStrategy = winnerStrategy;
+    unitMapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
+    unitMapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+    unitMapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
 
 }
 
@@ -80,7 +82,7 @@ public GameImpl(AgingStrategy agingStrategy){
 
   public Unit getUnitAt( Position p ) {
 
-      return mapping.get(p);
+      return unitMapping.get(p);
 
 
 
@@ -109,34 +111,42 @@ public GameImpl(AgingStrategy agingStrategy){
   public int getAge() { return age; }
 
   public boolean moveUnit( Position from, Position to ) {
-      if (getTileAt(to).getTypeString() == GameConstants.OCEANS){return false;}
-      if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS){return false;}
-      if (getUnitAt(from).getMoveCount() == 0){return false;}
-      if (getUnitAt(from).getOwner() != playerInTurn){return false;}
-      if (getUnitAt(to) != null){
-          if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())){return false;}}
-      if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {return false;}
-
-
-
-
-
-        UnitImpl unit = mapping.get(from);
-        unit.setMoveCount(0);
-        mapping.remove(from);
-        mapping.put(to, unit);
-      if (getCityAt(to) != null) {
-        if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
-            ((CityImpl)getCityAt(to)).setOwner(getUnitAt(to).getOwner());
-        }
+      if (getTileAt(to).getTypeString() == GameConstants.OCEANS) {
+          return false;
+      }
+      if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS) {
+          return false;
+      }
+      if (getUnitAt(from).getMoveCount() == 0) {
+          return false;
+      }
+      if (getUnitAt(from).getOwner() != playerInTurn) {
+          return false;
+      }
+      if (getUnitAt(to) != null) {
+          if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())) {
+              return false;
+          }
+      }
+      if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {
+          return false;
       }
 
 
+      UnitImpl unit = unitMapping.get(from);
+      unit.setMoveCount(0);
+      unitMapping.remove(from);
+      unitMapping.put(to, unit);
+      if (getCityAt(to) != null) {
+          if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
+              ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
 
+          }
+      }
+      return true;
 
+  }
 
-    return true;
-}
 
 
 
@@ -150,6 +160,9 @@ public GameImpl(AgingStrategy agingStrategy){
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
           bluecity.setResource(resource);
+          for (UnitImpl allUnits : unitMapping.values()){
+              allUnits.setMoveCount(1);
+          }
 
           if (bluecity.getProduction() == GameConstants.ARCHER && bluecity.getResource() >= 10){
 
@@ -169,7 +182,7 @@ public GameImpl(AgingStrategy agingStrategy){
       } else{
           playerInTurn = Player.RED;
           age = agingStrategy.calculateAge(age);
-          for (UnitImpl allUnits : mapping.values()){
+          for (UnitImpl allUnits : unitMapping.values()){
               allUnits.setMoveCount(1);
           }
           redcity.setResource(resource);
@@ -190,35 +203,34 @@ public GameImpl(AgingStrategy agingStrategy){
           }
 
 
-      if(age == -3000){
-        winner = Player.RED;
+
       }
-      }
+      winner = winnerStrategy.checkWinner(this);
 
 
   }
 
     public void createUnit(Position cityPosition ,UnitImpl createdUnit){
 
-        if (!mapping.containsKey(cityPosition)){
+        if (!unitMapping.containsKey(cityPosition)){
 
-            mapping.put(cityPosition, createdUnit);
+            unitMapping.put(cityPosition, createdUnit);
         }
 
-        else if(!mapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() -1))){
-            mapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() -1),createdUnit);
+        else if(!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() -1))){
+            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() -1),createdUnit);
         }
-        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1))){
-            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1),createdUnit);
+        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1))){
+            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1),createdUnit);
         }
-        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn()))){
-            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn()),createdUnit);
+        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn()))){
+            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn()),createdUnit);
         }
-        else if(!mapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1))){
-            mapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1),createdUnit);
+        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1))){
+            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1),createdUnit);
         }
-        else if(!mapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() +1))){
-            mapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() +1),createdUnit);
+        else if(!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() +1))){
+            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() +1),createdUnit);
         }
 
 

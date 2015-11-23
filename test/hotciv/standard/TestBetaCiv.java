@@ -1,6 +1,8 @@
 package hotciv.standard;
 
 import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +19,7 @@ public class TestBetaCiv {
 
     @Before
     public void setup(){
-       game = new GameImpl(new BetaCivAgingStrategy());
+       game = new GameImpl(new BetaCivAgingStrategy(), new BetaWinnerStrategy());
     }
 
     public void numberOfRounds(int round){
@@ -81,5 +83,23 @@ public class TestBetaCiv {
         assertThat(game.getAge(), is(1973));
     }
 
+    @Test
+    public void playerRedWinsGameWhenAllCitiesAreRed(){
+        game.moveUnit(new Position(2,0), new Position(3,1));
+        numberOfRounds(1);
+        game.moveUnit(new Position(3,1), new Position(4,1));
+        numberOfRounds(1);
+        assertThat(game.getWinner(), is(Player.RED));
+    }
 
+    @Test
+    public void playerBlueWinsGameWhenAllCitiesAreBlue(){
+        game.endOfTurn();
+
+        game.moveUnit(new Position(3,2), new Position(2,1));
+        numberOfRounds(1);
+        game.moveUnit(new Position(2,1), new Position(1,1));
+        numberOfRounds(1);
+        assertThat(game.getWinner(), is(Player.BLUE));
+    }
 }
