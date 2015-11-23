@@ -113,15 +113,22 @@ public GameImpl(){
       if (getUnitAt(from).getMoveCount() == 0){return false;}
       if (getUnitAt(to) != null){
           if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())){return false;}}
+      if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {return false;}
 
 
 
-if(from.getRow() - to.getRow() <= 1 && from.getRow() - to.getRow() >= -1 && from.getColumn() - to.getColumn() <= 1 && from.getColumn() - to.getColumn() >= -1) {
+
 
         UnitImpl unit = mapping.get(from);
         unit.setMoveCount(0);
         mapping.remove(from);
         mapping.put(to, unit);
+      if (getCityAt(to) != null) {
+        if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
+            ((CityImpl)getCityAt(to)).setOwner(getUnitAt(to).getOwner());
+        }
+      }
+
 
 
 
@@ -131,11 +138,8 @@ if(from.getRow() - to.getRow() <= 1 && from.getRow() - to.getRow() >= -1 && from
 
 
 
-else{
-        return false;
-    }
 
-  }
+
 
 
 
