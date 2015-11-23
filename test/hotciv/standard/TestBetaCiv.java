@@ -27,8 +27,14 @@ public class TestBetaCiv {
     }
 
     @Test
-    public void ageIs300BCAfter10Rounds(){
+    public void ageIs3000BCAfter10Rounds(){
         numberOfRounds(10);
         assertThat(game.getAge(), is(-3000));
+    }
+
+    @Test
+    public void ageIs0After40Rounds(){
+        numberOfRounds(40);
+        assertThat(game.getAge(), is(0));
     }
 }
