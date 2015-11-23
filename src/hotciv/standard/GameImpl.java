@@ -35,6 +35,7 @@ public class GameImpl implements Game {
     private int age = -4000;
     private Player playerInTurn = Player.RED;
     private Player winner = null;
+    private AgingStrategy agingStrategy;
 
     private int resource = 6;
     private CityImpl redcity = new CityImpl(Player.RED);
@@ -52,8 +53,8 @@ public class GameImpl implements Game {
     private HashMap<Position, UnitImpl> mapping = new HashMap(256);
 
 
-public GameImpl(){
-
+public GameImpl(AgingStrategy agingStrategy){
+    this.agingStrategy = agingStrategy;
     mapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     mapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
     mapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
@@ -111,6 +112,7 @@ public GameImpl(){
       if (getTileAt(to).getTypeString() == GameConstants.OCEANS){return false;}
       if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS){return false;}
       if (getUnitAt(from).getMoveCount() == 0){return false;}
+      if (getUnitAt(from).getOwner() != playerInTurn){return false;}
       if (getUnitAt(to) != null){
           if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())){return false;}}
       if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {return false;}
@@ -166,7 +168,7 @@ public GameImpl(){
 
       } else{
           playerInTurn = Player.RED;
-          age += 100;
+          age = agingStrategy.calculateAge(age);
           for (UnitImpl allUnits : mapping.values()){
               allUnits.setMoveCount(1);
           }

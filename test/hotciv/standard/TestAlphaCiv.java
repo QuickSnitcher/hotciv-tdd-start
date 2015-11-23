@@ -61,7 +61,7 @@ public class TestAlphaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl();
+        game = new GameImpl(new AlphaCivAgingStrategy());
 
 
     }
@@ -401,7 +401,7 @@ public class TestAlphaCiv {
 
     @Test
     public void blueLegionCanNotMoveMoreThanOneTileARound(){
-
+        game.endOfTurn();
         game.moveUnit(new Position(3, 2), new Position(4, 2));
         assertThat(game.getUnitAt(new Position(4,2)).getTypeString(), is("legion"));
         oneRound();
@@ -439,6 +439,8 @@ public class TestAlphaCiv {
         assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.RED));
 
     }
+
+
 
 
 
