@@ -12,7 +12,7 @@ public class BetaCivAgingStrategy implements AgingStrategy {
     @Override
     public int calculateAge(int ageSoFar) {
 
-        if(ageSoFar <= 100){
+        if(ageSoFar <= -100){
             ageSoFar += 100;
         }
         else if(ageSoFar == 0 && hasBeenZero == false){
@@ -23,10 +23,10 @@ public class BetaCivAgingStrategy implements AgingStrategy {
             ageSoFar +=1;
             hasBeenZero = true;
         }
-        else if (ageSoFar == 0){
+        else if (ageSoFar == 0 && hasBeenZero == true){
             ageSoFar += 50;
         }
-        else if (ageSoFar > 50 && ageSoFar < 1750){
+        else if (ageSoFar >= 50 && ageSoFar < 1750){
             ageSoFar += 50;
         }
         else if (ageSoFar >= 1750 && ageSoFar < 1900){
