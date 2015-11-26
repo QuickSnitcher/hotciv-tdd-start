@@ -49,7 +49,12 @@ public class TestGammaCiv {
 
     }
 
-
+    @Test
+    public void redArcherCannotMoveWhenFortified(){
+        game.performUnitActionAt(new Position(2,0));
+        game.moveUnit(new Position(2,0), new Position(3,0));
+        assertThat(game.getUnitAt(new Position(3,0)), is(nullValue()));
+    }
 
 
 

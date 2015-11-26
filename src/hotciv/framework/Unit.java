@@ -64,5 +64,5 @@ public interface Unit {
    */
   public int getAttackingStrength();
 
-
+public boolean checkFortify();
 }

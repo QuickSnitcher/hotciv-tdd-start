@@ -10,6 +10,7 @@ public class UnitImpl implements Unit {
     private String type;
     private Player owner;
     private int moveCount = 1;
+    private boolean fortified = false;
 
     private int defensiveStr = 3;
 
@@ -32,7 +33,9 @@ public class UnitImpl implements Unit {
     }
 
     public void setMoveCount(int updateCount){
-        moveCount = updateCount;
+
+            moveCount = updateCount;
+
     }
 
     @Override
@@ -40,9 +43,18 @@ public class UnitImpl implements Unit {
         return moveCount;
     }
 
+    public boolean checkFortify(){
+        return fortified;
+    }
 
     public void setDefensiveStrength(){
-        defensiveStr = 6;
+        if (fortified == false){
+            defensiveStr = 6;
+            fortified = true;
+        }
+        else{fortified = false;
+            defensiveStr = 3;
+        }
     }
 
     @Override

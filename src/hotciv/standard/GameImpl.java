@@ -134,6 +134,10 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
           return false;
       }
 
+      if (getUnitAt(from).checkFortify() == true){
+          return false;
+      }
+
 
       UnitImpl unit = unitMapping.get(from);
       unit.setMoveCount(0);
