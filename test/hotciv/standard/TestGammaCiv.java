@@ -56,6 +56,16 @@ public class TestGammaCiv {
         assertThat(game.getUnitAt(new Position(3,0)), is(nullValue()));
     }
 
+    @Test
+    public void redArcherCanUnfortify(){
+        game.performUnitActionAt(new Position(2,0));
+        game.performUnitActionAt(new Position(2,0));
+        game.moveUnit(new Position(2,0), new Position(3,0));
+        assertThat(game.getUnitAt(new Position(3,0)).getTypeString(), is("archer"));
+        assertThat(game.getUnitAt(new Position(3,0)).getDefensiveStrength(), is(3));
+
+    }
+
 
 
 
