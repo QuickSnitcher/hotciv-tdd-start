@@ -19,7 +19,7 @@ public class TestGammaCiv {
 
     @Before
     public void setup(){
-        game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new DeltaLayoutStrategy());
+        game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new DeltaLayoutStrategy(), new GammaCivActionStrategy());
     }
 
     public void numberOfRounds(int round){
@@ -42,6 +42,17 @@ public class TestGammaCiv {
         assertThat(game.getUnitAt(new Position(2,0)).getDefensiveStrength(), is(6));
 
     }
+
+    @Test
+    public void redArcherHas3DefenceAtNormal(){
+        assertThat(game.getUnitAt(new Position(2,0)).getDefensiveStrength(), is(3));
+
+    }
+
+
+
+
+
 
 
 }

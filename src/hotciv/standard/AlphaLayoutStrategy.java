@@ -7,7 +7,7 @@ import hotciv.framework.Position;
  * Created by Liam on 26-11-2015.
  */
 public class AlphaLayoutStrategy implements LayoutStrategy {
-    ;
+
 
     @Override
    public int redCityXPosition(){

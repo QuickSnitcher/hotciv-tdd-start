@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.variant.AlphaCivActionStrategy;
 import hotciv.variant.BetaCivAgingStrategy;
 import hotciv.variant.BetaWinnerStrategy;
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class TestBetaCiv {
 
     @Before
     public void setup(){
-       game = new GameImpl(new BetaCivAgingStrategy(), new BetaWinnerStrategy(), new AlphaLayoutStrategy());
+       game = new GameImpl(new BetaCivAgingStrategy(), new BetaWinnerStrategy(), new AlphaLayoutStrategy(), new AlphaCivActionStrategy());
     }
 
     public void numberOfRounds(int round){

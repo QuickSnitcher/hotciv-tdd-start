@@ -38,6 +38,7 @@ public class GameImpl implements Game {
     private AgingStrategy agingStrategy;
     private WinnerStrategy winnerStrategy;
     private LayoutStrategy layoutStrategy;
+    private ActionStrategy actionstrategy;
 
     private int resource = 6;
 
@@ -55,10 +56,11 @@ public class GameImpl implements Game {
     private HashMap<Position, CityImpl> cityMapping = new HashMap(256);
 
 
-public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy){
+public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy){
     this.agingStrategy = agingStrategy;
     this.winnerStrategy = winnerStrategy;
     this.layoutStrategy = layoutStrategy;
+    this.actionstrategy = actionStrategy;
 
     unitMapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     unitMapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
@@ -251,5 +253,5 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
             ((CityImpl)getCityAt(p)).setUnitInProduction(unitType);
 
   }
-  public void performUnitActionAt( Position p ) {}
+  public void performUnitActionAt( Position p ) {actionstrategy.performAction(p, this); }
 }

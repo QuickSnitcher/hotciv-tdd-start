@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variant.AlphaCivActionStrategy;
 import hotciv.variant.AlphaCivAgingStrategy;
 import hotciv.variant.AlphaWinnerStrategy;
 import org.junit.*;
@@ -63,7 +64,7 @@ public class TestAlphaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new AlphaLayoutStrategy());
+        game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new AlphaLayoutStrategy(), new AlphaCivActionStrategy());
 
 
     }

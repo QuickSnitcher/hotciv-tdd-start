@@ -10,7 +10,10 @@ public class UnitImpl implements Unit {
     private String type;
     private Player owner;
     private int moveCount = 1;
-    private int defensiveStrength = 3;
+
+    private int defensiveStr = 3;
+
+
 
     public UnitImpl(String type, Player owner ){
         this.type = type;
@@ -38,10 +41,13 @@ public class UnitImpl implements Unit {
     }
 
 
-    
+    public void setDefensiveStrength(){
+        defensiveStr = 6;
+    }
+
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        return defensiveStr;
     }
 
     @Override
