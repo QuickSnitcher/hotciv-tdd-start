@@ -42,7 +42,9 @@ public class Position {
   protected int r;
   protected int c;
 
-  /** get the row represented by this position.
+
+
+    /** get the row represented by this position.
    * @return the row.
    */
   public int getRow() { return r; }

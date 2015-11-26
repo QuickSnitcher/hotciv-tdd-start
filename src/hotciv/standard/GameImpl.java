@@ -37,10 +37,11 @@ public class GameImpl implements Game {
     private Player winner = null;
     private AgingStrategy agingStrategy;
     private WinnerStrategy winnerStrategy;
+    private LayoutStrategy layoutStrategy;
 
     private int resource = 6;
-    private CityImpl redcity = new CityImpl(Player.RED);
-    private CityImpl bluecity = new CityImpl(Player.BLUE);
+    private CityImpl redcity;
+    private CityImpl bluecity;
 
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
@@ -52,15 +53,19 @@ public class GameImpl implements Game {
 
 
     private HashMap<Position, UnitImpl> unitMapping = new HashMap(256);
+    private HashMap<Position, CityImpl> cityMapping = new HashMap(256);
 
 
-public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy){
+public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy){
     this.agingStrategy = agingStrategy;
     this.winnerStrategy = winnerStrategy;
+    this.layoutStrategy = layoutStrategy;
+
     unitMapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     unitMapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
     unitMapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-
+    cityMapping.put(new Position(layoutStrategy.redCityXPosition(),layoutStrategy.redCityYPosition()), redcity =  new CityImpl(Player.RED));
+    cityMapping.put(new Position(layoutStrategy.blueCityXPosition(),layoutStrategy.blueCityYPosition()), bluecity = new CityImpl(Player.BLUE));
 }
 
     public Tile getTileAt( Position p ) {
@@ -92,6 +97,8 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy){
   }
 
   public City getCityAt( Position p ) {
+      return cityMapping.get(p);
+      /*
       if (p.getRow()==1 && p.getColumn()==1) {
           return redcity;
       }
@@ -102,7 +109,7 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy){
       else{
           return null;
       }
-
+*/
   }
   public Player getPlayerInTurn() { return playerInTurn; }
 
