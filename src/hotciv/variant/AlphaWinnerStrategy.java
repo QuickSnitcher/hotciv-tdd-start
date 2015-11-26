@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.variant;
 
 import hotciv.framework.Game;
 import hotciv.framework.Player;

@@ -40,8 +40,7 @@ public class GameImpl implements Game {
     private LayoutStrategy layoutStrategy;
 
     private int resource = 6;
-    private CityImpl redcity;
-    private CityImpl bluecity;
+
 
     private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
     private Tile hillTile = new TileImpl(GameConstants.HILLS);
@@ -64,8 +63,8 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
     unitMapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
     unitMapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
     unitMapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-    cityMapping.put(new Position(layoutStrategy.redCityXPosition(),layoutStrategy.redCityYPosition()), redcity =  new CityImpl(Player.RED));
-    cityMapping.put(new Position(layoutStrategy.blueCityXPosition(),layoutStrategy.blueCityYPosition()), bluecity = new CityImpl(Player.BLUE));
+    cityMapping.put(new Position(layoutStrategy.redCityXPosition(),layoutStrategy.redCityYPosition()), new CityImpl(Player.RED));
+    cityMapping.put(new Position(layoutStrategy.blueCityXPosition(),layoutStrategy.blueCityYPosition()), new CityImpl(Player.BLUE));
 }
 
     public Tile getTileAt( Position p ) {
@@ -85,31 +84,25 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
         return plainsTile;
         }
 
+    public HashMap getUnitMap(){
+        return unitMapping;
+    }
   public Unit getUnitAt( Position p ) {
 
       return unitMapping.get(p);
 
 
 
-
-
-
   }
+
+    public HashMap getCityMap(){
+        return cityMapping;
+    }
 
   public City getCityAt( Position p ) {
       return cityMapping.get(p);
-      /*
-      if (p.getRow()==1 && p.getColumn()==1) {
-          return redcity;
-      }
-      if (p.getRow()==4 && p.getColumn()==1){
 
-          return bluecity;
-      }
-      else{
-          return null;
-      }
-*/
+
   }
   public Player getPlayerInTurn() { return playerInTurn; }
 
@@ -166,24 +159,30 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
   public void endOfTurn() {
       if (playerInTurn == Player.RED) {
           playerInTurn = Player.BLUE;
-          bluecity.setResource(resource);
           for (UnitImpl allUnits : unitMapping.values()){
               allUnits.setMoveCount(1);
           }
+          for (CityImpl blueCities : cityMapping.values()) {
+              if (blueCities.getOwner() == Player.BLUE) {
+                  blueCities.setResource(resource);
 
-          if (bluecity.getProduction() == GameConstants.ARCHER && bluecity.getResource() >= 10){
 
-              createUnit(new Position(4,1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-              bluecity.setResource(-10);
+                  if (blueCities.getProduction() == GameConstants.ARCHER && blueCities.getResource() >= 10) {
+
+                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                      blueCities.setResource(-10);
+                  }
+                  if (blueCities.getProduction() == GameConstants.LEGION && blueCities.getResource() >= 15) {
+                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+                      blueCities.setResource(-15);
+                  }
+                  if (blueCities.getProduction() == GameConstants.SETTLER && blueCities.getResource() >= 30) {
+                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
+                      blueCities.setResource(-30);
+                  }
+              }
           }
-          if (bluecity.getProduction() == GameConstants.LEGION && bluecity.getResource() >= 15){
-              createUnit(new Position(4,1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-              bluecity.setResource(-15);
-          }
-          if (bluecity.getProduction() == GameConstants.SETTLER && bluecity.getResource() >= 30){
-              createUnit(new Position(4,1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
-              bluecity.setResource(-30);
-          }
+
 
 
       } else{
@@ -192,25 +191,27 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
           for (UnitImpl allUnits : unitMapping.values()){
               allUnits.setMoveCount(1);
           }
-          redcity.setResource(resource);
+          for (CityImpl redCities : cityMapping.values()) {
+              if (redCities.getOwner() == Player.RED){
+              redCities.setResource(resource);
 
-          if (redcity.getProduction() == GameConstants.ARCHER && redcity.getResource() >= 10){
-              redcity.setResource(-10);
-              createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
-
-
-          }
-          if (redcity.getProduction() == GameConstants.LEGION && redcity.getResource() >= 15){
-              createUnit(new Position(1,1), new UnitImpl(GameConstants.LEGION, Player.RED));
-              redcity.setResource(-15);
-          }
-          if (redcity.getProduction() == GameConstants.SETTLER && redcity.getResource() >= 30){
-              createUnit(new Position(1,1), new UnitImpl(GameConstants.SETTLER, Player.RED));
-              redcity.setResource(-30);
-          }
+              if (redCities.getProduction() == GameConstants.ARCHER && redCities.getResource() >= 10) {
+                  redCities.setResource(-10);
+                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
 
 
+              }
+              if (redCities.getProduction() == GameConstants.LEGION && redCities.getResource() >= 15) {
+                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.LEGION, Player.RED));
+                  redCities.setResource(-15);
+              }
+              if (redCities.getProduction() == GameConstants.SETTLER && redCities.getResource() >= 30) {
+                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.SETTLER, Player.RED));
+                  redCities.setResource(-30);
+              }
 
+
+          }}
       }
       winner = winnerStrategy.checkWinner(this);
 

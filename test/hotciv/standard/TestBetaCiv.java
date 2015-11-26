@@ -3,6 +3,8 @@ package hotciv.standard;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.variant.BetaCivAgingStrategy;
+import hotciv.variant.BetaWinnerStrategy;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -2,6 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import hotciv.variant.AlphaCivAgingStrategy;
+import hotciv.variant.AlphaWinnerStrategy;
 import org.junit.*;
 import org.junit.validator.PublicClassValidator;
 
@@ -361,6 +363,7 @@ public class TestAlphaCiv {
 
         game.changeProductionInCityAt(redcity, "legion");
         oneRound();
+        assertThat(game.getCityAt(redcity).getResource(), is(6));
         oneRound();
         oneRound();
         game.changeProductionInCityAt(redcity, "archer");
