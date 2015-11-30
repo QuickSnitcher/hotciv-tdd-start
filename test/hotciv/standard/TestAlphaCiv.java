@@ -4,11 +4,9 @@ import hotciv.framework.*;
 
 import hotciv.variant.AlphaCivActionStrategy;
 import hotciv.variant.AlphaCivAgingStrategy;
+import hotciv.variant.AlphaLayoutStrategy;
 import hotciv.variant.AlphaWinnerStrategy;
 import org.junit.*;
-import org.junit.validator.PublicClassValidator;
-
-import javax.swing.plaf.metal.OceanTheme;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;

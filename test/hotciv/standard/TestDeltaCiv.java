@@ -6,6 +6,7 @@ import hotciv.framework.Position;
 import hotciv.variant.AlphaCivActionStrategy;
 import hotciv.variant.AlphaCivAgingStrategy;
 import hotciv.variant.AlphaWinnerStrategy;
+import hotciv.variant.DeltaLayoutStrategy;
 import org.junit.Before;
 import org.junit.Test;
 

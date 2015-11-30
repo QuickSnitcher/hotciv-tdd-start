@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.framework.Position;
 import hotciv.framework.Tile;
 
 /**
@@ -15,5 +16,9 @@ public class TileImpl implements Tile {
     @Override
     public String getTypeString() {
         return type;
+    }
+
+    public void setTileAt(Position p, Tile tile){
+
     }
 }

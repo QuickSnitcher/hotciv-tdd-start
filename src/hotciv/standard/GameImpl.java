@@ -54,6 +54,8 @@ public class GameImpl implements Game {
 
     private HashMap<Position, UnitImpl> unitMapping = new HashMap(256);
     private HashMap<Position, CityImpl> cityMapping = new HashMap(256);
+    private HashMap<Position, TileImpl> tileMapping = new HashMap(256);
+
 
 
 public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy){
@@ -68,6 +70,9 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
     cityMapping.put(new Position(layoutStrategy.redCityXPosition(),layoutStrategy.redCityYPosition()), new CityImpl(Player.RED));
     cityMapping.put(new Position(layoutStrategy.blueCityXPosition(),layoutStrategy.blueCityYPosition()), new CityImpl(Player.BLUE));
 }
+    public HashMap getTileMap() {
+        return tileMapping;
+    }
 
     public Tile getTileAt( Position p ) {
         if(p.getRow() == 1 && p.getColumn() == 0) {
@@ -92,10 +97,8 @@ public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, Layo
   public Unit getUnitAt( Position p ) {
 
       return unitMapping.get(p);
-
-
-
   }
+
 
     public HashMap getCityMap(){
         return cityMapping;

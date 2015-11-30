@@ -4,6 +4,7 @@ import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.variant.AlphaCivActionStrategy;
+import hotciv.variant.AlphaLayoutStrategy;
 import hotciv.variant.BetaCivAgingStrategy;
 import hotciv.variant.BetaWinnerStrategy;
 import org.junit.Before;

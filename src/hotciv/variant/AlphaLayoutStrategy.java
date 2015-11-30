@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.variant;
 
 import hotciv.framework.LayoutStrategy;
 import hotciv.framework.Position;
