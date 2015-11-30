@@ -7,7 +7,7 @@ import hotciv.framework.WinnerStrategy;
 /**
  * Created by simon on 23-11-2015.
  */
-public class AlphaWinnerStrategy implements WinnerStrategy {
+public class RedWinnerStrategy implements WinnerStrategy {
 
 
     @Override

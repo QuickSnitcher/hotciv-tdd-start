@@ -8,7 +8,7 @@ import hotciv.standard.UnitImpl;
 /**
  * Created by simon on 23-11-2015.
  */
-public class GammaCivActionStrategy implements ActionStrategy {
+public class YesActionStrategy implements ActionStrategy {
 
 
 

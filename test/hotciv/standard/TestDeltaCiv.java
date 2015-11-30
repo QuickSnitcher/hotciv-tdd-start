@@ -3,10 +3,10 @@ package hotciv.standard;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variant.AlphaCivActionStrategy;
-import hotciv.variant.AlphaCivAgingStrategy;
-import hotciv.variant.AlphaWinnerStrategy;
-import hotciv.variant.DeltaLayoutStrategy;
+import hotciv.variant.NoActionsStrategy;
+import hotciv.variant.LinearAgingStrategy;
+import hotciv.variant.RedWinnerStrategy;
+import hotciv.variant.CustomLayoutStrategy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class TestDeltaCiv {
     Position p;
     @Before
     public void setUp(){
-        game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new DeltaLayoutStrategy(), new AlphaCivActionStrategy());
+        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(), new NoActionsStrategy());
 
     }
     @Test

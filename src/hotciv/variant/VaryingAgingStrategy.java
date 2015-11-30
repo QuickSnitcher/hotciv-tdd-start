@@ -5,7 +5,7 @@ import hotciv.framework.AgingStrategy;
 /**
  * Created by simon on 23-11-2015.
  */
-public class BetaCivAgingStrategy implements AgingStrategy {
+public class VaryingAgingStrategy implements AgingStrategy {
 
     private boolean hasBeenZero = false;
 

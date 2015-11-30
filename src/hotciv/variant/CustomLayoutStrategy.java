@@ -9,7 +9,7 @@ import hotciv.standard.UnitImpl;
 /**
  * Created by Liam on 26-11-2015.
  */
-public class DeltaLayoutStrategy implements LayoutStrategy {
+public class CustomLayoutStrategy implements LayoutStrategy {
 
 
 

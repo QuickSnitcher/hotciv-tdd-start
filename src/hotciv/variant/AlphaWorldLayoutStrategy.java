@@ -6,7 +6,7 @@ import hotciv.framework.Position;
 /**
  * Created by Liam on 26-11-2015.
  */
-public class AlphaLayoutStrategy implements LayoutStrategy {
+public class AlphaWorldLayoutStrategy implements LayoutStrategy {
 
 
     @Override
