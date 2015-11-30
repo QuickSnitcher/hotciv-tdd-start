@@ -8,7 +8,7 @@ import hotciv.standard.UnitImpl;
 /**
  * Created by Liam on 26-11-2015.
  */
-public class AlphaWorldLayoutStrategy implements LayoutStrategy {
+public class AlphaLayoutStrategy implements LayoutStrategy {
 
 
     @Override

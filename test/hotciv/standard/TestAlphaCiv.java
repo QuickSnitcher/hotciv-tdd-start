@@ -4,7 +4,7 @@ import hotciv.framework.*;
 
 import hotciv.variant.NoActionsStrategy;
 import hotciv.variant.LinearAgingStrategy;
-import hotciv.variant.AlphaWorldLayoutStrategy;
+import hotciv.variant.AlphaLayoutStrategy;
 import hotciv.variant.RedWinnerStrategy;
 import org.junit.*;
 
@@ -62,7 +62,7 @@ public class TestAlphaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new AlphaWorldLayoutStrategy(), new NoActionsStrategy());
+        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new AlphaLayoutStrategy(), new NoActionsStrategy());
 
 
     }

@@ -4,7 +4,7 @@ import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.variant.NoActionsStrategy;
-import hotciv.variant.AlphaWorldLayoutStrategy;
+import hotciv.variant.AlphaLayoutStrategy;
 import hotciv.variant.VaryingAgingStrategy;
 import hotciv.variant.ConquestWinnerStrategy;
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class TestBetaCiv {
 
     @Before
     public void setup(){
-       game = new GameImpl(new VaryingAgingStrategy(), new ConquestWinnerStrategy(), new AlphaWorldLayoutStrategy(), new NoActionsStrategy());
+       game = new GameImpl(new VaryingAgingStrategy(), new ConquestWinnerStrategy(), new AlphaLayoutStrategy(), new NoActionsStrategy());
     }
 
     public void numberOfRounds(int round){
