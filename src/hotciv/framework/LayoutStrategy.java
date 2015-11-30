@@ -1,13 +1,14 @@
 package hotciv.framework;
 
+import hotciv.standard.GameImpl;
+
 /**
  * Created by Liam on 26-11-2015.
  */
 public interface LayoutStrategy {
 
-    public int redCityXPosition();
-    public int redCityYPosition();
-    public int blueCityXPosition();
-    public int blueCityYPosition();
+    public void generateWorld(GameImpl game);
+
+
 
 }

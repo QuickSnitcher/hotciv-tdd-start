@@ -21,7 +21,7 @@ public class GammaCivActionStrategy implements ActionStrategy {
             game.getCityMap().put(p, new CityImpl(cityOwner));
         }
         else if (game.getUnitAt(p).getTypeString() == GameConstants.ARCHER){
-            ((UnitImpl)game.getUnitAt(p)).setDefensiveStrength();
+            ((UnitImpl)game.getUnitAt(p)).setFortify();
         }
 
 

@@ -47,7 +47,7 @@ public class UnitImpl implements Unit {
         return fortified;
     }
 
-    public void setDefensiveStrength(){
+    public void setFortify(){
         if (fortified == false){
             defensiveStr = 6;
             fortified = true;

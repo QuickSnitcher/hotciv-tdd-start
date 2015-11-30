@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.variant.AlphaCivActionStrategy;
@@ -19,20 +20,26 @@ import static org.junit.Assert.assertThat;
 public class TestDeltaCiv {
     private Game game;
     Position p;
+
     @Before
     public void setUp(){
         game = new GameImpl(new AlphaCivAgingStrategy(), new AlphaWinnerStrategy(), new DeltaLayoutStrategy(), new AlphaCivActionStrategy());
 
     }
-    @Test
-    public void redCityAtPosition1X1(){
-        p = new Position(8,12);
 
+    @Test
+    public void oceanTileAt0x0(){
+        assertThat(game.getTileAt(new Position(0,0)).getTypeString(), is(GameConstants.OCEANS));
+    }
+
+    @Test
+    public void redCityAtPosition8X12(){
+        p = new Position(8,12);
         assertThat(game.getCityAt(p).getOwner(), is(Player.RED));
     }
 
     @Test
-    public void blueCityAtPosition4X1(){
+    public void blueCityAtPosition4X5(){
         p = new Position(4,5);
         assertThat(game.getCityAt(p).getOwner(), is(Player.BLUE));
     }

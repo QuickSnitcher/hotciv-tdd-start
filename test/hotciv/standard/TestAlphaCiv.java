@@ -434,9 +434,10 @@ public class TestAlphaCiv {
 
     @Test
     public void redArcherCanConvertBlueCity(){
-        game.moveUnit(new Position(2,0), new Position(3,1));
+
+        game.moveUnit(new Position(2,0), new Position(3,0));
         oneRound();
-        game.moveUnit(new Position(3,1), new Position(4,1));
+        game.moveUnit(new Position(3,0), new Position(4,1));
         assertThat(game.getUnitAt(new Position(4,1)).getTypeString(), is("archer"));
         assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.RED));
 

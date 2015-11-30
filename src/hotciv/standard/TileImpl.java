@@ -18,7 +18,5 @@ public class TileImpl implements Tile {
         return type;
     }
 
-    public void setTileAt(Position p, Tile tile){
 
-    }
 }

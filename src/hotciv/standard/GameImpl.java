@@ -49,216 +49,255 @@ public class GameImpl implements Game {
     private Tile plainsTile = new TileImpl(GameConstants.PLAINS);
 
 
-
-
-
     private HashMap<Position, UnitImpl> unitMapping = new HashMap(256);
     private HashMap<Position, CityImpl> cityMapping = new HashMap(256);
     private HashMap<Position, TileImpl> tileMapping = new HashMap(256);
 
 
+    public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy) {
+        this.agingStrategy = agingStrategy;
+        this.winnerStrategy = winnerStrategy;
+        this.layoutStrategy = layoutStrategy;
+        this.actionstrategy = actionStrategy;
 
-public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy){
-    this.agingStrategy = agingStrategy;
-    this.winnerStrategy = winnerStrategy;
-    this.layoutStrategy = layoutStrategy;
-    this.actionstrategy = actionStrategy;
+        layoutStrategy.generateWorld(this);
 
-    unitMapping.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
-    unitMapping.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
-    unitMapping.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-    cityMapping.put(new Position(layoutStrategy.redCityXPosition(),layoutStrategy.redCityYPosition()), new CityImpl(Player.RED));
-    cityMapping.put(new Position(layoutStrategy.blueCityXPosition(),layoutStrategy.blueCityYPosition()), new CityImpl(Player.BLUE));
-}
+
+    }
+
     public HashMap getTileMap() {
         return tileMapping;
     }
 
-    public Tile getTileAt( Position p ) {
-        if(p.getRow() == 1 && p.getColumn() == 0) {
+    public Tile getTileAt(Position p) {
 
-            return oceanTile;
+            return tileMapping.get(p);
+    }
 
-        }
-        else if(p.getRow() == 0 && p.getColumn()==1){
-
-            return hillTile;
-        }else if(p.getRow()==2 && p.getColumn()==2) {
-
-            return mountainTile;
-        }else
-
-        return plainsTile;
-        }
-
-    public HashMap getUnitMap(){
+    public HashMap getUnitMap() {
         return unitMapping;
     }
-  public Unit getUnitAt( Position p ) {
 
-      return unitMapping.get(p);
-  }
+    public Unit getUnitAt(Position p) {
+
+        return unitMapping.get(p);
+    }
 
 
-    public HashMap getCityMap(){
+    public HashMap getCityMap() {
         return cityMapping;
     }
 
-  public City getCityAt( Position p ) {
-      return cityMapping.get(p);
+    public City getCityAt(Position p) {
+        return cityMapping.get(p);
 
 
-  }
-  public Player getPlayerInTurn() { return playerInTurn; }
+    }
 
-  public Player getWinner() { return winner; }
+    public Player getPlayerInTurn() {
+        return playerInTurn;
+    }
 
-  public int getAge() { return age; }
+    public Player getWinner() {
+        return winner;
+    }
 
-  public boolean moveUnit( Position from, Position to ) {
-      if (getTileAt(to).getTypeString() == GameConstants.OCEANS) {
-          return false;
-      }
-      if (getTileAt(to).getTypeString() == GameConstants.MOUNTAINS) {
-          return false;
-      }
-      if (getUnitAt(from).getMoveCount() == 0) {
-          return false;
-      }
-      if (getUnitAt(from).getOwner() != playerInTurn) {
-          return false;
-      }
-      if (getUnitAt(to) != null) {
-          if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())) {
-              return false;
-          }
-      }
-      if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {
-          return false;
-      }
+    public int getAge() {
+        return age;
+    }
 
-      if (getUnitAt(from).checkFortify() == true){
-          return false;
-      }
+    public boolean moveUnit(Position from, Position to) {
+        if (getUnitAt(from) == null){
+            return false;
+        }
+        if (getTileAt(to).getTypeString().equals(GameConstants.OCEANS)) {
+            return false;
+        }
+        if (getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS)) {
+            return false;
+        }
+        if (getUnitAt(from).getMoveCount() == 0) {
+            return false;
+        }
+        if (getUnitAt(from).getOwner() != playerInTurn) {
+            return false;
+        }
+        if (getUnitAt(to) != null) {
+            if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())) {
+                return false;
+            }
+        }
+        if (from.getRow() - to.getRow() > 1 || from.getRow() - to.getRow() < -1 || from.getColumn() - to.getColumn() > 1 || from.getColumn() - to.getColumn() < -1) {
+            return false;
+        }
 
-
-      UnitImpl unit = unitMapping.get(from);
-      unit.setMoveCount(0);
-      unitMapping.remove(from);
-      unitMapping.put(to, unit);
-      if (getCityAt(to) != null) {
-          if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
-              ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
-
-          }
-      }
-      return true;
-
-  }
+        if (getUnitAt(from).checkFortify()) {
+            return false;
+        }
 
 
+        UnitImpl unit = unitMapping.get(from);
+        unit.setMoveCount(0);
+        unitMapping.remove(from);
+        unitMapping.put(to, unit);
+        if (getCityAt(to) != null) {
+            if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
+                ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
+
+            }
+        }
+        return true;
+
+    }
 
 
+    public void endOfTurn() {
+        if (playerInTurn == Player.RED) {
+            playerInTurn = Player.BLUE;
+            for (UnitImpl allUnits : unitMapping.values()) {
+                allUnits.setMoveCount(1);
+            }
+            for (CityImpl blueCities : cityMapping.values()) {
+                if (blueCities.getOwner() == Player.BLUE) {
+                    blueCities.setResource(resource);
 
 
+                    if (blueCities.getProduction() == GameConstants.ARCHER && blueCities.getResource() >= 10) {
+
+                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                        blueCities.setResource(-10);
+                    }
+                    if (blueCities.getProduction() == GameConstants.LEGION && blueCities.getResource() >= 15) {
+                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+                        blueCities.setResource(-15);
+                    }
+                    if (blueCities.getProduction() == GameConstants.SETTLER && blueCities.getResource() >= 30) {
+                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
+                        blueCities.setResource(-30);
+                    }
+                }
+            }
 
 
+        } else {
+            playerInTurn = Player.RED;
+            age = agingStrategy.calculateAge(age);
+            for (UnitImpl allUnits : unitMapping.values()) {
+                allUnits.setMoveCount(1);
+            }
+            for (CityImpl redCities : cityMapping.values()) {
+                if (redCities.getOwner() == Player.RED) {
+                    redCities.setResource(resource);
+
+                    if (redCities.getProduction() == GameConstants.ARCHER && redCities.getResource() >= 10) {
+                        redCities.setResource(-10);
+                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
 
 
-  public void endOfTurn() {
-      if (playerInTurn == Player.RED) {
-          playerInTurn = Player.BLUE;
-          for (UnitImpl allUnits : unitMapping.values()){
-              allUnits.setMoveCount(1);
-          }
-          for (CityImpl blueCities : cityMapping.values()) {
-              if (blueCities.getOwner() == Player.BLUE) {
-                  blueCities.setResource(resource);
+                    }
+                    if (redCities.getProduction() == GameConstants.LEGION && redCities.getResource() >= 15) {
+                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.LEGION, Player.RED));
+                        redCities.setResource(-15);
+                    }
+                    if (redCities.getProduction() == GameConstants.SETTLER && redCities.getResource() >= 30) {
+                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.SETTLER, Player.RED));
+                        redCities.setResource(-30);
+                    }
 
 
-                  if (blueCities.getProduction() == GameConstants.ARCHER && blueCities.getResource() >= 10) {
-
-                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-                      blueCities.setResource(-10);
-                  }
-                  if (blueCities.getProduction() == GameConstants.LEGION && blueCities.getResource() >= 15) {
-                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-                      blueCities.setResource(-15);
-                  }
-                  if (blueCities.getProduction() == GameConstants.SETTLER && blueCities.getResource() >= 30) {
-                      createUnit(new Position(4, 1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
-                      blueCities.setResource(-30);
-                  }
-              }
-          }
+                }
+            }
+        }
+        winner = winnerStrategy.checkWinner(this);
 
 
+    }
 
-      } else{
-          playerInTurn = Player.RED;
-          age = agingStrategy.calculateAge(age);
-          for (UnitImpl allUnits : unitMapping.values()){
-              allUnits.setMoveCount(1);
-          }
-          for (CityImpl redCities : cityMapping.values()) {
-              if (redCities.getOwner() == Player.RED){
-              redCities.setResource(resource);
+    public void createUnit(Position cityPosition, UnitImpl createdUnit) {
 
-              if (redCities.getProduction() == GameConstants.ARCHER && redCities.getResource() >= 10) {
-                  redCities.setResource(-10);
-                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
-
-
-              }
-              if (redCities.getProduction() == GameConstants.LEGION && redCities.getResource() >= 15) {
-                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.LEGION, Player.RED));
-                  redCities.setResource(-15);
-              }
-              if (redCities.getProduction() == GameConstants.SETTLER && redCities.getResource() >= 30) {
-                  createUnit(new Position(1, 1), new UnitImpl(GameConstants.SETTLER, Player.RED));
-                  redCities.setResource(-30);
-              }
-
-
-          }}
-      }
-      winner = winnerStrategy.checkWinner(this);
-
-
-  }
-
-    public void createUnit(Position cityPosition ,UnitImpl createdUnit){
-
-        if (!unitMapping.containsKey(cityPosition)){
+        if (!unitMapping.containsKey(cityPosition)) {
 
             unitMapping.put(cityPosition, createdUnit);
-        }
-
-        else if(!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() -1))){
-            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() -1),createdUnit);
-        }
-        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1))){
-            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() -1),createdUnit);
-        }
-        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn()))){
-            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn()),createdUnit);
-        }
-        else if(!unitMapping.containsKey(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1))){
-            unitMapping.put(new Position(cityPosition.getRow() +1, cityPosition.getColumn() +1),createdUnit);
-        }
-        else if(!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() +1))){
-            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() +1),createdUnit);
+        } else if (!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() - 1))) {
+            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() - 1), createdUnit);
+        } else if (!unitMapping.containsKey(new Position(cityPosition.getRow() + 1, cityPosition.getColumn() - 1))) {
+            unitMapping.put(new Position(cityPosition.getRow() + 1, cityPosition.getColumn() - 1), createdUnit);
+        } else if (!unitMapping.containsKey(new Position(cityPosition.getRow() + 1, cityPosition.getColumn()))) {
+            unitMapping.put(new Position(cityPosition.getRow() + 1, cityPosition.getColumn()), createdUnit);
+        } else if (!unitMapping.containsKey(new Position(cityPosition.getRow() + 1, cityPosition.getColumn() + 1))) {
+            unitMapping.put(new Position(cityPosition.getRow() + 1, cityPosition.getColumn() + 1), createdUnit);
+        } else if (!unitMapping.containsKey(new Position(cityPosition.getRow(), cityPosition.getColumn() + 1))) {
+            unitMapping.put(new Position(cityPosition.getRow(), cityPosition.getColumn() + 1), createdUnit);
         }
 
 
     }
 
 
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+    public void changeWorkForceFocusInCityAt(Position p, String balance) {
+    }
 
-  public void changeProductionInCityAt( Position p, String unitType ) {
-            ((CityImpl)getCityAt(p)).setUnitInProduction(unitType);
+    public void changeProductionInCityAt(Position p, String unitType) {
+        ((CityImpl) getCityAt(p)).setUnitInProduction(unitType);
 
-  }
-  public void performUnitActionAt( Position p ) {actionstrategy.performAction(p, this); }
+    }
+
+    public void performUnitActionAt(Position p) {
+        actionstrategy.performAction(p, this);
+    }
+
+
+    public void setupWorld(String[] layout) {
+        String line;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            line = layout[r];
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                char atTileChar = line.charAt(c);
+
+                Position p = new Position(c, r);
+                if (atTileChar == '.') {
+                    tileMapping.put(p, new TileImpl(GameConstants.OCEANS));
+                }
+                if (atTileChar == 'P') {
+                    tileMapping.put(p, new TileImpl(GameConstants.PLAINS));
+                }
+                if (atTileChar == 'h') {
+                    tileMapping.put(p, new TileImpl(GameConstants.HILLS));
+                }
+                if (atTileChar == 'M') {
+                    tileMapping.put(p, new TileImpl(GameConstants.MOUNTAINS));
+                }
+                if (atTileChar == 'f') {
+                    tileMapping.put(p, new TileImpl(GameConstants.FOREST));
+                }
+
+                if (atTileChar == 'B') {
+                    cityMapping.put(p, new CityImpl(Player.BLUE));
+                }
+                if (atTileChar == 'R') {
+                    cityMapping.put(p, new CityImpl(Player.RED));
+                }
+
+                if (atTileChar == 'A') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 'a') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+                if (atTileChar == 'L') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 'l') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+                if (atTileChar == 'S') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 's') {
+                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+
+            }
+        }
+    }
 }
