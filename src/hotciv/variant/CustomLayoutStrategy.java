@@ -29,7 +29,7 @@ public class CustomLayoutStrategy implements LayoutStrategy {
             for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
                 char atTileChar = line.charAt(c);
 
-                Position p = new Position(r, c);
+                Position p = new Position(c, r);
                 if (atTileChar == '.') {
                     game.getTileMap().put(p, new TileImpl(GameConstants.OCEANS));
                 }

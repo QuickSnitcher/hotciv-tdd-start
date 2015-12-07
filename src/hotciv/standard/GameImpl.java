@@ -166,7 +166,8 @@ public class GameImpl implements Game {
                     ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
 
                 }
-            }return true;
+            }
+            return true;
         }
     }
 

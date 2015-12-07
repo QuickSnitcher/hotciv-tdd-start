@@ -117,17 +117,11 @@ public class TestEpsilonCiv {
         specialGame.moveUnit(new Position(2, 2), new Position(3, 2));
         specialGame.endOfTurn();
         specialGame.endOfTurn();
-        assertThat(specialGame.getUnitAt(new Position(3,2)).getOwner(), is(Player.RED));
-
         specialGame.moveUnit(new Position(3,2), new Position(4,2));
-
-        assertThat(specialGame.getUnitAt(new Position(4,2)).getOwner(), is(Player.RED));
-
         specialGame.endOfTurn();
         specialGame.endOfTurn();
         specialGame.moveUnit(new Position(4,2), new Position(5,2));
         specialGame.endOfTurn();
-
         assertThat(specialGame.getWinner(), is(Player.RED));
     }
 
