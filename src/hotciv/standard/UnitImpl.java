@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Unit;
 
@@ -49,21 +50,41 @@ public class UnitImpl implements Unit {
 
     public void setFortify(){
         if (fortified == false){
-            defensiveStr = 6;
+
             fortified = true;
         }
         else{fortified = false;
-            defensiveStr = 3;
+
         }
     }
 
     @Override
     public int getDefensiveStrength() {
-        return defensiveStr;
+        if (this.getTypeString().equals(GameConstants.ARCHER)){
+            if (fortified){
+                return 6;
+            }
+            return 3;
+        }
+        else if (this.getTypeString().equals(GameConstants.LEGION)){
+            return 2;
+        }
+        else{
+            return 0;
+        }
+
     }
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        if (this.getTypeString().equals(GameConstants.ARCHER)){
+            return 2;
+        }
+        else if (this.getTypeString().equals(GameConstants.LEGION)){
+            return 4;
+        }
+        else {
+            return 0;
+        }
     }
 }

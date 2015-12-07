@@ -39,14 +39,13 @@ public class GameImpl implements Game {
     private WinnerStrategy winnerStrategy;
     private LayoutStrategy layoutStrategy;
     private ActionStrategy actionstrategy;
+    private CombatStrategy combatStrategy;
+
 
     private int resource = 6;
 
 
-    private Tile oceanTile = new TileImpl(GameConstants.OCEANS);
-    private Tile hillTile = new TileImpl(GameConstants.HILLS);
-    private Tile mountainTile = new TileImpl(GameConstants.MOUNTAINS);
-    private Tile plainsTile = new TileImpl(GameConstants.PLAINS);
+
 
 
     private HashMap<Position, UnitImpl> unitMapping = new HashMap(256);
@@ -54,11 +53,12 @@ public class GameImpl implements Game {
     private HashMap<Position, TileImpl> tileMapping = new HashMap(256);
 
 
-    public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy) {
+    public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy, CombatStrategy combatStrategy) {
         this.agingStrategy = agingStrategy;
         this.winnerStrategy = winnerStrategy;
         this.layoutStrategy = layoutStrategy;
         this.actionstrategy = actionStrategy;
+        this.combatStrategy = combatStrategy;
 
         layoutStrategy.generateWorld(this);
 
@@ -107,7 +107,7 @@ public class GameImpl implements Game {
     }
 
     public boolean moveUnit(Position from, Position to) {
-        if (getUnitAt(from) == null){
+        if (getUnitAt(from) == null) {
             return false;
         }
         if (getTileAt(to).getTypeString().equals(GameConstants.OCEANS)) {
@@ -122,6 +122,7 @@ public class GameImpl implements Game {
         if (getUnitAt(from).getOwner() != playerInTurn) {
             return false;
         }
+
         if (getUnitAt(to) != null) {
             if (getUnitAt(from).getOwner().equals(getUnitAt(to).getOwner())) {
                 return false;
@@ -135,19 +136,37 @@ public class GameImpl implements Game {
             return false;
         }
 
+        //If attacker loses then remove attacker. Else move attacker.
+        if (getUnitAt(to) == null) {
+            UnitImpl unit = unitMapping.get(from);
+            unit.setMoveCount(0);
+            unitMapping.remove(from);
+            unitMapping.put(to, unit);
+            if (getCityAt(to) != null) {
+                if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
+                    ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
 
-        UnitImpl unit = unitMapping.get(from);
-        unit.setMoveCount(0);
-        unitMapping.remove(from);
-        unitMapping.put(to, unit);
-        if (getCityAt(to) != null) {
-            if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
-                ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
-
+                }
             }
-        }
-        return true;
+            return true;
+        } else if (!combatStrategy.attackerWins(this, from, to)) {
+            unitMapping.remove(from);
 
+            return true;
+        }else{
+            UnitImpl unit = unitMapping.get(from);
+            unit.setMoveCount(0);
+            winnerStrategy.checkWinner(this);
+
+            unitMapping.remove(from);
+            unitMapping.put(to, unit);
+            if (getCityAt(to) != null) {
+                if (!getUnitAt(to).getOwner().equals(getCityAt(to).getOwner())) {
+                    ((CityImpl) getCityAt(to)).setOwner(getUnitAt(to).getOwner());
+
+                }
+            }return true;
+        }
     }
 
 

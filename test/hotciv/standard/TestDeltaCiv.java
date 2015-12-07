@@ -4,10 +4,7 @@ import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variant.NoActionsStrategy;
-import hotciv.variant.LinearAgingStrategy;
-import hotciv.variant.RedWinnerStrategy;
-import hotciv.variant.CustomLayoutStrategy;
+import hotciv.variant.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +20,7 @@ public class TestDeltaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(), new NoActionsStrategy());
+        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(), new NoActionsStrategy(), new attackerAlwaysWins());
 
     }
 

@@ -19,7 +19,7 @@ public class TestGammaCiv {
 
     @Before
     public void setup(){
-        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(), new YesActionStrategy());
+        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new AlphaLayoutStrategy(), new YesActionStrategy(), new attackerAlwaysWins());
     }
 
     public void numberOfRounds(int round){

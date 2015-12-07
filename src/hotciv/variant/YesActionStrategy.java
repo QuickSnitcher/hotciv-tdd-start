@@ -15,12 +15,12 @@ public class YesActionStrategy implements ActionStrategy {
     @Override
     public void performAction(Position p, GameImpl game) {
 
-        if (game.getUnitAt(p).getTypeString() == GameConstants.SETTLER){
+        if (game.getUnitAt(p).getTypeString().equals(GameConstants.SETTLER)){
             Player cityOwner = game.getUnitAt(p).getOwner();
             game.getUnitMap().remove(p);
             game.getCityMap().put(p, new CityImpl(cityOwner));
         }
-        else if (game.getUnitAt(p).getTypeString() == GameConstants.ARCHER){
+        else if (game.getUnitAt(p).getTypeString().equals(GameConstants.ARCHER)){
             ((UnitImpl)game.getUnitAt(p)).setFortify();
         }
 
