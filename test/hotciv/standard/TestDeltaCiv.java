@@ -20,7 +20,25 @@ public class TestDeltaCiv {
 
     @Before
     public void setUp(){
-        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(), new NoActionsStrategy(), new attackerAlwaysWins());
+        String[] gameLayout = new String[]{
+                "...ppMppppp.....",
+                "..phhppppfffpp..",
+                ".pppppMppp...pp.",
+                ".ppMMMpppp..pppp",
+                "...pfppphhpppp..",
+                ".pfpBfppppphhpp.",
+                "...ppp..........",
+                ".ppppp.ppphppM..",
+                ".ppppp.pphpppf..",
+                "pfffpppp.pffpppp",
+                "pppppppp...ppppp",
+                ".ppMMMpppp......",
+                "..ppppppRfpppp..",
+                "....ppppppppp...",
+                "..ppphhpp.......",
+                ".....ppppppppp..",
+        };
+        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(gameLayout), new NoActionsStrategy(), new attackerAlwaysWins());
 
     }
 

@@ -5,6 +5,8 @@ import hotciv.variant.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 /**
@@ -109,10 +111,66 @@ public class TestEpsilonCiv {
 
     @Test
     public void redPlayerWinsGameAfterWinning3Attacks(){
-        supportedCombat.attackerWins(game, new Position(2,2),new Position(2,3));
-        supportedCombat.attackerWins(game, new Position(2,2),new Position(4,4));
-        supportedCombat.attackerWins(game, new Position(2,2),new Position(7,7));
-        assertThat(game.getWinner());
+        Game specialGame = new GameImpl(new LinearAgingStrategy(),new FirstToThree(),new CustomLayoutStrategy(gameLayout()),new NoActionsStrategy(),new SupportedCombat(new StaticDieRoll(6),new StaticDieRoll(1)) );
+        insertUnits(specialGame);
+
+        specialGame.moveUnit(new Position(2, 2), new Position(3, 2));
+        specialGame.endOfTurn();
+        specialGame.endOfTurn();
+        assertThat(specialGame.getUnitAt(new Position(3,2)).getOwner(), is(Player.RED));
+
+        specialGame.moveUnit(new Position(3,2), new Position(4,2));
+
+        assertThat(specialGame.getUnitAt(new Position(4,2)).getOwner(), is(Player.RED));
+
+        specialGame.endOfTurn();
+        specialGame.endOfTurn();
+        specialGame.moveUnit(new Position(4,2), new Position(5,2));
+        specialGame.endOfTurn();
+
+        assertThat(specialGame.getWinner(), is(Player.RED));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void insertUnits(Game specialGame){
+        specialGame.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.RED));
+        specialGame.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+        specialGame.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+        specialGame.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+    }
+
+
+
+    public String[] gameLayout(){
+        String[] layout = new String[]{
+                "...PPMPPPPP.....",
+                "..PhhPPPPfffPP..",
+                ".PPPPPMPPP...PP.",
+                ".PPMMMPPPP..PPPP",
+                "...PfPPPhhPPPP..",
+                ".PfPBfPPPPPhhPP.",
+                "...PPP..........",
+                ".PPPPP.PPPhPPM..",
+                ".PPPPP.PPhPPPf..",
+                "PfffPPPP.PffPPPP",
+                "PPPPPPPP...PPPPP",
+                ".PPMMMPPPP......",
+                "..PPPPPPRfPPPP..",
+                "....PPPPPPPPP...",
+                "..PPPhhPP.......",
+                ".....PPPPPPPPP..",
+        };
+        return layout;
     }
 
 
@@ -196,5 +254,20 @@ class GameStub implements Game{
     @Override
     public void performUnitActionAt(Position p) {
 
+    }
+
+    @Override
+    public HashMap getTileMap() {
+        return null;
+    }
+
+    @Override
+    public HashMap getUnitMap() {
+        return null;
+    }
+
+    @Override
+    public HashMap getCityMap() {
+        return null;
     }
 }

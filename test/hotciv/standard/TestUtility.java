@@ -195,6 +195,21 @@ class GameStubForBattleTesting implements Game {
     public boolean moveUnit(Position from, Position to) {return false;}
     public void performUnitActionAt( Position p ) {}
 
+    @Override
+    public HashMap getTileMap() {
+        return null;
+    }
+
+    @Override
+    public HashMap getUnitMap() {
+        return null;
+    }
+
+    @Override
+    public HashMap getCityMap() {
+        return null;
+    }
+
     // Remove these if the Game interface for the AlphaCiv exercise is used.
     // public void addObserver(GameObserver observer) {}
     // public void setTileFocus(Position position) {}

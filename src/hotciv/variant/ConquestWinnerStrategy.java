@@ -16,4 +16,9 @@ public class ConquestWinnerStrategy implements WinnerStrategy{
         }else{
         return null;
     }}
+
+    @Override
+    public void increaseAttackCounter(Game game){
+
+    }
 }

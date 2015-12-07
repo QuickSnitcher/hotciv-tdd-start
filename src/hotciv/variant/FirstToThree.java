@@ -11,21 +11,31 @@ public class FirstToThree implements WinnerStrategy {
 
     private int playerBlueAttacks = 0;
     private int playerRedAttacks = 0;
+    private Player winner = null;
 
     @Override
     public Player checkWinner(Game game) {
-        if (game.getPlayerInTurn() == Player.RED){
+        return winner;
+    }
+
+    public void increaseAttackCounter(Game game){
+        if (game.getPlayerInTurn().equals(Player.RED)){
             playerRedAttacks++;
         }
-        else if (game.getPlayerInTurn() == Player.BLUE){
+        if (game.getPlayerInTurn().equals(Player.BLUE)){
             playerBlueAttacks++;
         }
-        if (playerBlueAttacks == 3){
-            return Player.BLUE;
+        if (playerBlueAttacks >= 3){
+            winner = Player.BLUE;
+
         }
-        else if (playerRedAttacks == 3){
-            return Player.RED;
+        if (playerRedAttacks >= 3){
+            winner = Player.RED;
+
         }
-        return null;
+    }
+
+    public int getPlayerRedAttacks(){
+        return playerRedAttacks;
     }
 }

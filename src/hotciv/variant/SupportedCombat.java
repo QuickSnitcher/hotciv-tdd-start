@@ -38,6 +38,7 @@ public class SupportedCombat implements CombatStrategy {
         defensiveStrength = (unitStr + support) * terrain;
         defensiveResult = defensiveStrength * dieRollStrategy2.dieRoll();
         if (attackingResult > defensiveResult){
+
             return true;
         }
         else {

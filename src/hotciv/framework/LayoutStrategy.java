@@ -7,7 +7,7 @@ import hotciv.standard.GameImpl;
  */
 public interface LayoutStrategy {
 
-    public void generateWorld(GameImpl game);
+    public void generateWorld(Game game);
 
 
 

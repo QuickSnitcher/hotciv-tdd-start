@@ -8,4 +8,6 @@ import hotciv.standard.GameImpl;
 public interface WinnerStrategy {
 
     public Player checkWinner(Game game);
+
+    public void increaseAttackCounter(Game game);
 }

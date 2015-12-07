@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+import hotciv.variant.FirstToThree;
 
 import java.util.HashMap;
 
@@ -149,15 +150,15 @@ public class GameImpl implements Game {
                 }
             }
             return true;
-        } else if (!combatStrategy.attackerWins(this, from, to)) {
+        }if (!combatStrategy.attackerWins(this, from, to)) {
             unitMapping.remove(from);
 
             return true;
         }else{
             UnitImpl unit = unitMapping.get(from);
             unit.setMoveCount(0);
-            winnerStrategy.checkWinner(this);
-
+            winnerStrategy.increaseAttackCounter(this);
+            unitMapping.remove(to);
             unitMapping.remove(from);
             unitMapping.put(to, unit);
             if (getCityAt(to) != null) {
@@ -229,8 +230,9 @@ public class GameImpl implements Game {
         }
         winner = winnerStrategy.checkWinner(this);
 
-
     }
+
+
 
     public void createUnit(Position cityPosition, UnitImpl createdUnit) {
 
@@ -266,57 +268,5 @@ public class GameImpl implements Game {
     }
 
 
-    public void setupWorld(String[] layout) {
-        String line;
-        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
-            line = layout[r];
-            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
-                char atTileChar = line.charAt(c);
 
-                Position p = new Position(c, r);
-                if (atTileChar == '.') {
-                    tileMapping.put(p, new TileImpl(GameConstants.OCEANS));
-                }
-                if (atTileChar == 'P') {
-                    tileMapping.put(p, new TileImpl(GameConstants.PLAINS));
-                }
-                if (atTileChar == 'h') {
-                    tileMapping.put(p, new TileImpl(GameConstants.HILLS));
-                }
-                if (atTileChar == 'M') {
-                    tileMapping.put(p, new TileImpl(GameConstants.MOUNTAINS));
-                }
-                if (atTileChar == 'f') {
-                    tileMapping.put(p, new TileImpl(GameConstants.FOREST));
-                }
-
-                if (atTileChar == 'B') {
-                    cityMapping.put(p, new CityImpl(Player.BLUE));
-                }
-                if (atTileChar == 'R') {
-                    cityMapping.put(p, new CityImpl(Player.RED));
-                }
-
-                if (atTileChar == 'A') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-                }
-                if (atTileChar == 'a') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
-                }
-                if (atTileChar == 'L') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-                }
-                if (atTileChar == 'l') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
-                }
-                if (atTileChar == 'S') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-                }
-                if (atTileChar == 's') {
-                    unitMapping.put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
-                }
-
-            }
-        }
-    }
 }

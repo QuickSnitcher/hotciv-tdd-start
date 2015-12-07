@@ -17,4 +17,9 @@ public class RedWinnerStrategy implements WinnerStrategy {
         }
         return null;
     }
+
+    @Override
+    public void increaseAttackCounter(Game game){
+
+    }
 }

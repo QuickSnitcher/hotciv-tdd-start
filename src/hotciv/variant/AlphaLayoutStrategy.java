@@ -3,6 +3,7 @@ package hotciv.variant;
 import hotciv.framework.*;
 import hotciv.standard.CityImpl;
 import hotciv.standard.GameImpl;
+import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
 
 /**
@@ -12,7 +13,7 @@ public class AlphaLayoutStrategy implements LayoutStrategy {
 
 
     @Override
-    public void generateWorld(GameImpl game) {
+    public void generateWorld(Game game) {
         String[] layout = new String[]{
                 "P.PPPPPPPPPPPPPP",
                 "hPPPPPPPPPPPPPPP",
@@ -38,6 +39,60 @@ public class AlphaLayoutStrategy implements LayoutStrategy {
         game.getCityMap().put(new Position(1, 1), new CityImpl(Player.RED));
         game.getCityMap().put(new Position(4, 1), new CityImpl(Player.BLUE));
 
-        game.setupWorld(layout);
+        setupWorld(layout, game);
+    }
+
+    public void setupWorld(String[] layout, Game game) {
+        String line;
+        for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+            line = layout[r];
+            for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+                char atTileChar = line.charAt(c);
+
+                Position p = new Position(c, r);
+                if (atTileChar == '.') {
+                    game.getTileMap().put(p, new TileImpl(GameConstants.OCEANS));
+                }
+                if (atTileChar == 'P') {
+                    game.getTileMap().put(p, new TileImpl(GameConstants.PLAINS));
+                }
+                if (atTileChar == 'h') {
+                    game.getTileMap().put(p, new TileImpl(GameConstants.HILLS));
+                }
+                if (atTileChar == 'M') {
+                    game.getTileMap().put(p, new TileImpl(GameConstants.MOUNTAINS));
+                }
+                if (atTileChar == 'f') {
+                    game.getTileMap().put(p, new TileImpl(GameConstants.FOREST));
+                }
+
+                if (atTileChar == 'B') {
+                    game.getCityMap().put(p, new CityImpl(Player.BLUE));
+                }
+                if (atTileChar == 'R') {
+                    game.getCityMap().put(p, new CityImpl(Player.RED));
+                }
+
+                if (atTileChar == 'A') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 'a') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+                if (atTileChar == 'L') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 'l') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+                if (atTileChar == 'S') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                }
+                if (atTileChar == 's') {
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                }
+
+            }
+        }
     }
 }
