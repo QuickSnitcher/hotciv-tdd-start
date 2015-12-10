@@ -66,7 +66,7 @@ public class GameImpl implements Game {
 
     }
 
-    public HashMap getTileMap() {
+    public HashMap<Position, TileImpl> getTileMap() {
         return tileMapping;
     }
 
@@ -75,7 +75,7 @@ public class GameImpl implements Game {
             return tileMapping.get(p);
     }
 
-    public HashMap getUnitMap() {
+    public HashMap<Position, UnitImpl> getUnitMap() {
         return unitMapping;
     }
 
@@ -85,7 +85,7 @@ public class GameImpl implements Game {
     }
 
 
-    public HashMap getCityMap() {
+    public HashMap<Position, CityImpl> getCityMap() {
         return cityMapping;
     }
 

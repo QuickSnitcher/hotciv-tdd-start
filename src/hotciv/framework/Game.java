@@ -1,5 +1,9 @@
 package hotciv.framework;
 
+import hotciv.standard.CityImpl;
+import hotciv.standard.TileImpl;
+import hotciv.standard.UnitImpl;
+
 import java.util.HashMap;
 
 /** Game is the central interface allowing a client to access and
@@ -159,8 +163,8 @@ public interface Game {
     public void performUnitActionAt(Position p);
 
 
-    public HashMap getTileMap();
-    public HashMap getUnitMap();
-    public HashMap getCityMap();
+    public HashMap<Position, TileImpl> getTileMap();
+    public HashMap<Position, UnitImpl> getUnitMap();
+    public HashMap<Position, CityImpl> getCityMap();
 
 }
