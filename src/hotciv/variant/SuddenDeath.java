@@ -19,12 +19,12 @@ private ConquestWinnerStrategy conquest;
 
     @Override
     public Player checkWinner(Game game) {
-        if (game.getAge() <= -2000){
+        if (game.getAge() < -2000){
             state = conquest;
         }else {
             state = firstToThree;
         }
-        return state.checkWinner(game);
+        return conquest.checkWinner(game);
 
     }
 

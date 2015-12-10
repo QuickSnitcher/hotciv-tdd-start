@@ -10,11 +10,12 @@ import hotciv.standard.CityImpl;
  * Created by simon on 23-11-2015.
  */
 public class ConquestWinnerStrategy implements WinnerStrategy{
-    private int blue = 0;
-    private int red = 0;
+
 
     @Override
     public Player checkWinner(Game game) {
+        int blue = 0;
+        int red = 0;
         for (CityImpl city : game.getCityMap().values()) {
             if (city.getOwner() == Player.BLUE) {
                 blue++;
@@ -30,10 +31,12 @@ public class ConquestWinnerStrategy implements WinnerStrategy{
             return Player.RED;
         }
         else{
-            red = 0;
-            blue = 0;
+
         return null;
     }}
+
+
+
 
     @Override
     public void increaseAttackCounter(Game game){

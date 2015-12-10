@@ -24,14 +24,14 @@ public class TestZetaCiv {
                 ".PPPPPMPPP...PP.",
                 ".PPMMMPPPP..PPPP",
                 "...PfPPPhhPPPP..",
-                ".PfPBfPPPPPhhPP.",
+                ".PfPPfPPPPPhhPP.",
                 "...PPP..........",
                 ".PPPPP.PPPhPPM..",
                 ".PPPPP.PPhPPPf..",
                 "PfffPPPP.PffPPPP",
                 "PPPPPPPP...PPPPP",
                 ".PPMMMPPPP......",
-                "..PPPPPPRfPPPP..",
+                "..PPPPPPPfPPPP..",
                 "....PPPPPPPPP...",
                 "..PPPhhPP.......",
                 ".....PPPPPPPPP..",
@@ -41,14 +41,19 @@ public class TestZetaCiv {
         game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
         game.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
         game.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.RED));
-        game.getCityMap().put(new Position(4,4), new CityImpl(Player.RED));
+        game.getCityMap().put(new Position(5,1), new CityImpl(Player.BLUE));
         game.getCityMap().put(new Position(2,1), new CityImpl(Player.RED));
 
     }
 
     @Test
     public void redPlayerWinsGameWhenCapturingBlueCity(){
+
+        assertThat(game.getCityAt(new Position(5,1)).getOwner(), is(Player.BLUE));
         game.moveUnit(new Position(5,2), new Position(5,1));
+        assertThat(game.getCityAt(new Position(5,1)).getOwner(), is(Player.RED));
+
+        assertThat(game.getCityAt(new Position(2,1)).getOwner(), is(Player.RED));
         assertThat(game.getWinner(), is(Player.RED));
     }
 
