@@ -85,8 +85,9 @@ public class TestEpsilonCiv {
 
     @Test
     public void redArcherAt2X0AttacksBlueLegionAt3X2WinsAndMovesToLocation(){
-        SupportedCombat certainCombat = new SupportedCombat(new StaticDieRoll(5),new StaticDieRoll(2) );
-        GameImpl realGame = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new AlphaLayoutStrategy(), new NoActionsStrategy(), certainCombat);
+        TestEpsilonGameFactory factory = new TestEpsilonGameFactory(5, 2);
+        SupportedCombat certainCombat = (SupportedCombat) factory.createCombatStrategy();
+        GameImpl realGame = new GameImpl(factory);
         realGame.moveUnit(new Position(2,0),new Position(3,1));
         realGame.endOfTurn();
         realGame.endOfTurn();
@@ -98,8 +99,9 @@ public class TestEpsilonCiv {
 
     @Test
     public void redArcherLosesToBlueLegionAndIsThereforeRemovedFromGame(){
-        SupportedCombat certainCombat = new SupportedCombat(new StaticDieRoll(2),new StaticDieRoll(5) );
-        GameImpl realGame = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new AlphaLayoutStrategy(), new NoActionsStrategy(), certainCombat);
+        TestEpsilonGameFactory factory = new TestEpsilonGameFactory(2, 5);
+        SupportedCombat certainCombat = (SupportedCombat) factory.createCombatStrategy();
+        GameImpl realGame = new GameImpl(factory);
         realGame.moveUnit(new Position(2,0),new Position(3,1));
         realGame.endOfTurn();
         realGame.endOfTurn();
@@ -111,7 +113,7 @@ public class TestEpsilonCiv {
 
     @Test
     public void redPlayerWinsGameAfterWinning3Attacks(){
-        Game specialGame = new GameImpl(new LinearAgingStrategy(),new FirstToThree(),new CustomLayoutStrategy(gameLayout()),new NoActionsStrategy(),new SupportedCombat(new StaticDieRoll(6),new StaticDieRoll(1)) );
+        Game specialGame = new GameImpl(new TestEpsilonGameFactory(6,1));
         insertUnits(specialGame);
 
         specialGame.moveUnit(new Position(2, 2), new Position(3, 2));

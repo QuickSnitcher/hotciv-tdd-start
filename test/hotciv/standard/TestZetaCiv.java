@@ -6,6 +6,8 @@ import hotciv.framework.Position;
 import hotciv.variant.*;
 import org.junit.Before;
 import org.junit.Test;
+import sun.util.resources.cldr.te.TimeZoneNames_te;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 /**
@@ -36,7 +38,7 @@ public class TestZetaCiv {
                 "..PPPhhPP.......",
                 ".....PPPPPPPPP..",
         };
-        game = new GameImpl(new LinearAgingStrategy(), new SuddenDeath(), new CustomLayoutStrategy(world), new NoActionsStrategy(), new attackerAlwaysWins());
+        game = new GameImpl(new ZetaGameFactory());
         game.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
         game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
         game.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
@@ -75,9 +77,9 @@ public class TestZetaCiv {
         numberOfRounds(21);
         game.moveUnit(new Position(5,2), new Position(4,2));
         numberOfRounds(1);
-        game.moveUnit(new Position(4,2), new Position(3,2));
+        game.moveUnit(new Position(4, 2), new Position(3, 2));
         numberOfRounds(1);
-        game.moveUnit(new Position(3,2), new Position(2,2));
+        game.moveUnit(new Position(3, 2), new Position(2, 2));
         game.endOfTurn();
         assertThat(game.getWinner(), is(Player.RED));
 

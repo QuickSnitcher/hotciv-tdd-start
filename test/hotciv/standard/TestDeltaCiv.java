@@ -38,7 +38,7 @@ public class TestDeltaCiv {
                 "..ppphhpp.......",
                 ".....ppppppppp..",
         };
-        game = new GameImpl(new LinearAgingStrategy(), new RedWinnerStrategy(), new CustomLayoutStrategy(gameLayout), new NoActionsStrategy(), new attackerAlwaysWins());
+        game = new GameImpl(new DeltaGameFactory());
 
     }
 

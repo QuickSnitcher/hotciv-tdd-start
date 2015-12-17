@@ -20,7 +20,7 @@ public class TestBetaCiv {
 
     @Before
     public void setup(){
-       game = new GameImpl(new VaryingAgingStrategy(), new ConquestWinnerStrategy(), new AlphaLayoutStrategy(), new NoActionsStrategy(), new attackerAlwaysWins());
+       game = new GameImpl(new BetaGameFactory());
     }
 
     public void numberOfRounds(int round){

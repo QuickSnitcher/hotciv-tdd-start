@@ -41,6 +41,7 @@ public class GameImpl implements Game {
     private LayoutStrategy layoutStrategy;
     private ActionStrategy actionstrategy;
     private CombatStrategy combatStrategy;
+    private GameImplFactory factory;
 
 
     private int resource = 6;
@@ -54,12 +55,13 @@ public class GameImpl implements Game {
     private HashMap<Position, TileImpl> tileMapping = new HashMap(256);
 
 
-    public GameImpl(AgingStrategy agingStrategy, WinnerStrategy winnerStrategy, LayoutStrategy layoutStrategy, ActionStrategy actionStrategy, CombatStrategy combatStrategy) {
-        this.agingStrategy = agingStrategy;
-        this.winnerStrategy = winnerStrategy;
-        this.layoutStrategy = layoutStrategy;
-        this.actionstrategy = actionStrategy;
-        this.combatStrategy = combatStrategy;
+    public GameImpl(GameImplFactory factory) {
+        this.factory = factory;
+        this.agingStrategy = factory.createAgingStrategy();
+        this.winnerStrategy = factory.createWinnerStrategy();
+        this.layoutStrategy = factory.createLayoutStrategy();
+        this.actionstrategy = factory.createActionStrategy();
+        this.combatStrategy = factory.createCombatStrategy();
 
         layoutStrategy.generateWorld(this);
 
