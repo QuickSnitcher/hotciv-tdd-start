@@ -100,7 +100,7 @@ public class GameImpl implements Game {
     }
 
     public Player getWinner() {
-        return winnerStrategy.checkWinner(this);
+        return winner;
     }
 
     public int getAge() {

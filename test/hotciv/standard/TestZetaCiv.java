@@ -53,8 +53,34 @@ public class TestZetaCiv {
         game.moveUnit(new Position(5,2), new Position(5,1));
         assertThat(game.getCityAt(new Position(5,1)).getOwner(), is(Player.RED));
 
-        assertThat(game.getCityAt(new Position(2,1)).getOwner(), is(Player.RED));
+        assertThat(game.getCityAt(new Position(2, 1)).getOwner(), is(Player.RED));
+        game.endOfTurn();
         assertThat(game.getWinner(), is(Player.RED));
+    }
+
+    @Test
+    public void redPlayerDoesNotWinByCapturingAfter20Rounds(){
+        numberOfRounds(21);
+        assertThat(game.getCityAt(new Position(5,1)).getOwner(), is(Player.BLUE));
+        game.moveUnit(new Position(5,2), new Position(5,1));
+        assertThat(game.getCityAt(new Position(5,1)).getOwner(), is(Player.RED));
+
+        assertThat(game.getCityAt(new Position(2, 1)).getOwner(), is(Player.RED));
+        assertThat(game.getWinner(), is(nullValue()));
+
+    }
+
+    @Test
+    public void redPlayerWinsGameAfter20RoundsByWinningThreeAttacks(){
+        numberOfRounds(21);
+        game.moveUnit(new Position(5,2), new Position(4,2));
+        numberOfRounds(1);
+        game.moveUnit(new Position(4,2), new Position(3,2));
+        numberOfRounds(1);
+        game.moveUnit(new Position(3,2), new Position(2,2));
+        game.endOfTurn();
+        assertThat(game.getWinner(), is(Player.RED));
+
     }
 
 
@@ -63,8 +89,12 @@ public class TestZetaCiv {
 
 
 
-
-
+    public void numberOfRounds(int round){
+        for (int i = 0; i < round; i++ ){
+            game.endOfTurn();
+            game.endOfTurn();
+        }
+    }
 
 
 

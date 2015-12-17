@@ -24,7 +24,7 @@ private ConquestWinnerStrategy conquest;
         }else {
             state = firstToThree;
         }
-        return conquest.checkWinner(game);
+        return state.checkWinner(game);
 
     }
 
