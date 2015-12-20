@@ -54,22 +54,22 @@ public class CustomLayoutStrategy implements LayoutStrategy {
                 }
 
                 if (atTileChar == 'A') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 'a') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
                 }
                 if (atTileChar == 'L') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 'l') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
                 }
                 if (atTileChar == 'S') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 's') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3 ));
                 }
 
             }

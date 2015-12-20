@@ -3,12 +3,12 @@ package hotciv.variant;
 import hotciv.framework.*;
 
 /**
- * Created by Liam on 17-12-2015.
+ * Created by simon on 19-12-2015.
  */
-public class EpsilonGameFactory implements GameImplFactory {
+public class ThetaGameFactory implements GameImplFactory {
     @Override
     public ActionStrategy createActionStrategy() {
-        return new NoActionsStrategy();
+        return new ChariotAction(new YesActionStrategy());
     }
 
     @Override
@@ -22,16 +22,17 @@ public class EpsilonGameFactory implements GameImplFactory {
     }
 
     @Override
-    public WinnerStrategy createWinnerStrategy() {return new FirstToThree();
+    public WinnerStrategy createWinnerStrategy() {
+        return new RedWinnerStrategy();
     }
 
     @Override
     public CombatStrategy createCombatStrategy() {
-        return new SupportedCombat(new RandomDieRoll(), new RandomDieRoll());
+        return new attackerAlwaysWins();
     }
 
     @Override
     public UnitAvailableStrategy unitAvailableStrategy() {
-        return new NoChariotAvailable();
+        return new ChariotAvailable(new NoChariotAvailable());
     }
 }

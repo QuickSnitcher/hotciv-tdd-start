@@ -39,10 +39,10 @@ public class TestZetaCiv {
                 ".....PPPPPPPPP..",
         };
         game = new GameImpl(new ZetaGameFactory());
-        game.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-        game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-        game.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-        game.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.RED));
+        game.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
+        game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
+        game.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
+        game.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
         game.getCityMap().put(new Position(5,1), new CityImpl(Player.BLUE));
         game.getCityMap().put(new Position(2,1), new CityImpl(Player.RED));
 

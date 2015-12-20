@@ -139,10 +139,10 @@ public class TestEpsilonCiv {
 
 
     public void insertUnits(Game specialGame){
-        specialGame.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.RED));
-        specialGame.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-        specialGame.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-        specialGame.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+        specialGame.getUnitMap().put(new Position(2,2), new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
+        specialGame.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
+        specialGame.getUnitMap().put(new Position(4,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
+        specialGame.getUnitMap().put(new Position(5,2), new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
     }
 
 
@@ -194,10 +194,10 @@ class GameStub implements Game{
     @Override
     public Unit getUnitAt(Position p) {
         if (p.getRow()==2 && p.getColumn()==2){
-            return new UnitImpl(GameConstants.ARCHER, Player.RED);
+            return new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3);
         }
         if (p.getRow()==2 && p.getColumn()==3 ||p.getRow()==4 && p.getColumn()==4 || p.getRow() == 7 && p.getColumn() == 7 || p.getRow() == 6 && p.getColumn() == 7 || p.getRow() == 4 && p.getColumn() == 5 || p.getRow() == 5 && p.getColumn() == 4 || p.getRow() == 5 && p.getColumn() == 5  ){
-            return new UnitImpl(GameConstants.ARCHER, Player.BLUE);
+            return new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3);
         }
         else
         return null;

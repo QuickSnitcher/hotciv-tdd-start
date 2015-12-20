@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.City;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 
 /**
@@ -9,7 +10,7 @@ import hotciv.framework.Player;
 public class CityImpl implements City {
     private Player owner;
     private int resource = 0;
-    private String unitInProduction = null;
+    private String unitInProduction = GameConstants.ARCHER;
 
 
     public CityImpl(Player owner){

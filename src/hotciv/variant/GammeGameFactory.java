@@ -28,6 +28,11 @@ public class GammeGameFactory implements GameImplFactory {
 
     @Override
     public CombatStrategy createCombatStrategy() {
-        return null;
+        return new attackerAlwaysWins();
+    }
+
+    @Override
+    public UnitAvailableStrategy unitAvailableStrategy() {
+        return new NoChariotAvailable();
     }
 }

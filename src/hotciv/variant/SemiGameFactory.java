@@ -3,9 +3,10 @@ package hotciv.variant;
 import hotciv.framework.*;
 
 /**
- * Created by Liam on 17-12-2015.
+ * Created by simon on 17-12-2015.
  */
-public class DeltaGameFactory implements GameImplFactory {
+public class SemiGameFactory implements GameImplFactory {
+
     String[] gameLayout = new String[]{
             "...ppMppppp.....",
             "..phhppppfffpp..",
@@ -24,14 +25,15 @@ public class DeltaGameFactory implements GameImplFactory {
             "..ppphhpp.......",
             ".....ppppppppp..",
     };
+
     @Override
     public ActionStrategy createActionStrategy() {
-        return new NoActionsStrategy();
+        return new SettlerAction();
     }
 
     @Override
     public AgingStrategy createAgingStrategy() {
-        return new LinearAgingStrategy();
+        return new VaryingAgingStrategy();
     }
 
     @Override
@@ -41,12 +43,12 @@ public class DeltaGameFactory implements GameImplFactory {
 
     @Override
     public WinnerStrategy createWinnerStrategy() {
-        return null;
+        return new SuddenDeath();
     }
 
     @Override
     public CombatStrategy createCombatStrategy() {
-        return null;
+        return new SupportedCombat(new RandomDieRoll(), new RandomDieRoll());
     }
 
     @Override

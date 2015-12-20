@@ -33,9 +33,9 @@ public class AlphaLayoutStrategy implements LayoutStrategy {
                 "PPPPPPPPPPPPPPPP",
         };
 
-        game.getUnitMap().put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
-        game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-        game.getUnitMap().put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+        game.getUnitMap().put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
+        game.getUnitMap().put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE, 4,2));
+        game.getUnitMap().put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED, 0,3));
         game.getCityMap().put(new Position(1, 1), new CityImpl(Player.RED));
         game.getCityMap().put(new Position(4, 1), new CityImpl(Player.BLUE));
 
@@ -74,22 +74,22 @@ public class AlphaLayoutStrategy implements LayoutStrategy {
                 }
 
                 if (atTileChar == 'A') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 'a') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
                 }
                 if (atTileChar == 'L') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 'l') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
                 }
                 if (atTileChar == 'S') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.BLUE, 2,3));
                 }
                 if (atTileChar == 's') {
-                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED));
+                    game.getUnitMap().put(p, new UnitImpl(GameConstants.ARCHER, Player.RED, 2,3));
                 }
 
             }

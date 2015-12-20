@@ -42,6 +42,7 @@ public class GameImpl implements Game {
     private ActionStrategy actionstrategy;
     private CombatStrategy combatStrategy;
     private GameImplFactory factory;
+    private UnitAvailableStrategy unitAvailableStrategy;
 
 
     private int resource = 6;
@@ -62,7 +63,7 @@ public class GameImpl implements Game {
         this.layoutStrategy = factory.createLayoutStrategy();
         this.actionstrategy = factory.createActionStrategy();
         this.combatStrategy = factory.createCombatStrategy();
-
+        this.unitAvailableStrategy = factory.unitAvailableStrategy();
         layoutStrategy.generateWorld(this);
 
 
@@ -91,7 +92,7 @@ public class GameImpl implements Game {
         return cityMapping;
     }
 
-    public City getCityAt(Position p) {
+    public CityImpl getCityAt(Position p) {
         return cityMapping.get(p);
 
 
@@ -102,6 +103,7 @@ public class GameImpl implements Game {
     }
 
     public Player getWinner() {
+
         return winner;
     }
 
@@ -180,23 +182,23 @@ public class GameImpl implements Game {
             for (UnitImpl allUnits : unitMapping.values()) {
                 allUnits.setMoveCount(1);
             }
-            for (CityImpl blueCities : cityMapping.values()) {
-                if (blueCities.getOwner() == Player.BLUE) {
-                    blueCities.setResource(resource);
+            for (Position blueCity : cityMapping.keySet()) {
+                CityImpl city = getCityAt(blueCity);
+                if (city != null) {
+                    if (city.getOwner() == Player.BLUE) {
+                        city.setResource(resource);
 
 
-                    if (blueCities.getProduction() == GameConstants.ARCHER && blueCities.getResource() >= 10) {
+                        String cityProduction = city.getProduction();
+                            int unitCost = unitAvailableStrategy.unitCostOf(cityProduction);
+                        if (city.getResource() >= unitCost) {
+                            int attack = unitAvailableStrategy.getAtt(cityProduction);
+                            int defence = unitAvailableStrategy.getDef(cityProduction);
+                            createUnit(blueCity, new UnitImpl(cityProduction, Player.BLUE, attack, defence));
+                            city.setResource(-unitCost);
+                        }
 
-                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
-                        blueCities.setResource(-10);
-                    }
-                    if (blueCities.getProduction() == GameConstants.LEGION && blueCities.getResource() >= 15) {
-                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-                        blueCities.setResource(-15);
-                    }
-                    if (blueCities.getProduction() == GameConstants.SETTLER && blueCities.getResource() >= 30) {
-                        createUnit(new Position(4, 1), new UnitImpl(GameConstants.SETTLER, Player.BLUE));
-                        blueCities.setResource(-30);
+
                     }
                 }
             }
@@ -208,23 +210,14 @@ public class GameImpl implements Game {
             for (UnitImpl allUnits : unitMapping.values()) {
                 allUnits.setMoveCount(1);
             }
-            for (CityImpl redCities : cityMapping.values()) {
-                if (redCities.getOwner() == Player.RED) {
-                    redCities.setResource(resource);
+            for (Position redCity : cityMapping.keySet()) {
+                if (getCityAt(redCity).getOwner() == Player.RED) {
+                    getCityAt(redCity).setResource(resource);
 
-                    if (redCities.getProduction() == GameConstants.ARCHER && redCities.getResource() >= 10) {
-                        redCities.setResource(-10);
-                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.ARCHER, Player.RED));
-
-
-                    }
-                    if (redCities.getProduction() == GameConstants.LEGION && redCities.getResource() >= 15) {
-                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.LEGION, Player.RED));
-                        redCities.setResource(-15);
-                    }
-                    if (redCities.getProduction() == GameConstants.SETTLER && redCities.getResource() >= 30) {
-                        createUnit(new Position(1, 1), new UnitImpl(GameConstants.SETTLER, Player.RED));
-                        redCities.setResource(-30);
+                    int unitCost = unitAvailableStrategy.unitCostOf(getCityAt(redCity).getProduction());
+                    if (getCityAt(redCity).getResource() >= unitCost) {
+                        createUnit(redCity, new UnitImpl(getCityAt(redCity).getProduction(), Player.BLUE, unitAvailableStrategy.getAtt(getCityAt(redCity).getProduction()), unitAvailableStrategy.getDef(getCityAt(redCity).getProduction())));
+                        getCityAt(redCity).setResource(-unitCost);
                     }
 
 
@@ -262,7 +255,7 @@ public class GameImpl implements Game {
     }
 
     public void changeProductionInCityAt(Position p, String unitType) {
-        ((CityImpl) getCityAt(p)).setUnitInProduction(unitType);
+        getCityAt(p).setUnitInProduction(unitType);
 
     }
 

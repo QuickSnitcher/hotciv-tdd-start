@@ -30,4 +30,9 @@ public class BetaGameFactory implements GameImplFactory {
     public CombatStrategy createCombatStrategy() {
         return new attackerAlwaysWins();
     }
+
+    @Override
+    public UnitAvailableStrategy unitAvailableStrategy() {
+        return new NoChariotAvailable();
+    }
 }

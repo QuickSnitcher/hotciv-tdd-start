@@ -10,5 +10,6 @@ public interface GameImplFactory  {
     public LayoutStrategy createLayoutStrategy();
     public WinnerStrategy createWinnerStrategy();
     public CombatStrategy createCombatStrategy();
+    public UnitAvailableStrategy unitAvailableStrategy();
 
 }

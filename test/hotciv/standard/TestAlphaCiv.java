@@ -250,12 +250,12 @@ public class TestAlphaCiv {
     }
 
     @Test
-    public void redCityHas18ProductionAfter3Rounds(){
+    public void redCityHas8ProductionAfter3Rounds(){
         p = new Position(1,1);
         oneRound();
         oneRound();
         oneRound();
-        assertThat(game.getCityAt(p).getResource(), is(18));
+        assertThat(game.getCityAt(p).getResource(), is(8));
     }
 
     @Test
@@ -266,12 +266,12 @@ public class TestAlphaCiv {
     }
 
     @Test
-    public void blueCityHas18ProductionAfter3Rounds(){
+    public void blueCityHas8ProductionAfter3Rounds(){
         p = new Position(4,1);
         oneRound();
         oneRound();
         oneRound();
-        assertThat(game.getCityAt(p).getResource(), is(18));
+        assertThat(game.getCityAt(p).getResource(), is(8));
     }
 
     @Test

@@ -12,15 +12,18 @@ public class UnitImpl implements Unit {
     private Player owner;
     private int moveCount = 1;
     private boolean fortified = false;
-
+    private int def;
+    private int att;
     private int defensiveStr = 3;
 
 
-
-    public UnitImpl(String type, Player owner ){
+    public UnitImpl(String type, Player owner, int att, int def) {
         this.type = type;
         this.owner = owner;
+        this.att = att;
+        this.def = def;
     }
+
     @Override
     public String getTypeString() {
 
@@ -33,9 +36,9 @@ public class UnitImpl implements Unit {
         return owner;
     }
 
-    public void setMoveCount(int updateCount){
+    public void setMoveCount(int updateCount) {
 
-            moveCount = updateCount;
+        moveCount = updateCount;
 
     }
 
@@ -44,47 +47,32 @@ public class UnitImpl implements Unit {
         return moveCount;
     }
 
-    public boolean checkFortify(){
+    public boolean checkFortify() {
         return fortified;
     }
 
-    public void setFortify(){
-        if (fortified == false){
+    public void setFortify() {
+        if (fortified == false) {
 
             fortified = true;
-        }
-        else{fortified = false;
+        } else {
+            fortified = false;
 
         }
     }
 
     @Override
     public int getDefensiveStrength() {
-        if (this.getTypeString().equals(GameConstants.ARCHER)){
-            if (fortified){
-                return 6;
-            }
-            return 3;
-        }
-        else if (this.getTypeString().equals(GameConstants.LEGION)){
-            return 2;
-        }
-        else{
-            return 0;
+        if (fortified) {
+            return def * 2;
+        } else {
+            return def;
         }
 
     }
 
     @Override
     public int getAttackingStrength() {
-        if (this.getTypeString().equals(GameConstants.ARCHER)){
-            return 2;
-        }
-        else if (this.getTypeString().equals(GameConstants.LEGION)){
-            return 4;
-        }
-        else {
-            return 0;
-        }
+        return att;
     }
 }
